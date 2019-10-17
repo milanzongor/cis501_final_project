@@ -1,5 +1,5 @@
-<mxfile host="www.draw.io" modified="2019-10-17T19:00:23.137Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:69.0) Gecko/20100101 Firefox/69.0" etag="xHPun1S0KVgt72SuhoP_" version="12.1.3" type="github" pages="1">
-  <diagram id="_z4kQtNUOiMaieox2jux" name="login_use_case">
+<mxfile host="www.draw.io" modified="2019-10-17T19:16:56.350Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:69.0) Gecko/20100101 Firefox/69.0" etag="w_7r25TQ9Am6va_t2hG8" version="12.1.3" type="github" pages="2">
+  <diagram id="_z4kQtNUOiMaieox2jux" name="use_cases">
     <mxGraphModel dx="910" dy="457" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0"/>
@@ -39,6 +39,17 @@
         </mxCell>
         <mxCell id="ySJwpqClKpDvceEXHUdE-9" value="&lt;div&gt;Use case &lt;b&gt;Log in/Sign in&lt;/b&gt;:&lt;/div&gt;&lt;div&gt;&lt;ol&gt;&lt;li&gt;Launches client&lt;/li&gt;&lt;li&gt;Enters a name and password&lt;/li&gt;&lt;li&gt;Log into the server&lt;/li&gt;&lt;/ol&gt;&lt;/div&gt;" style="text;html=1;resizable=0;points=[];autosize=1;align=left;verticalAlign=top;spacingTop=-4;" vertex="1" parent="1">
           <mxGeometry x="606" y="92" width="220" height="80" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="8tmaxquOV3pFWbp3nLbB" name="login_realization">
+    <mxGraphModel dx="910" dy="457" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="TPf8srN3C42zovDJcVEA-0"/>
+        <mxCell id="TPf8srN3C42zovDJcVEA-1" parent="TPf8srN3C42zovDJcVEA-0"/>
+        <mxCell id="TPf8srN3C42zovDJcVEA-2" value="&lt;div&gt;&lt;b&gt;&lt;font style=&quot;font-size: 25px&quot;&gt;Log in/Sign in realization:&lt;/font&gt;&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;&lt;font style=&quot;font-size: 12px&quot;&gt;asdf&lt;br&gt;&lt;/font&gt;&lt;/span&gt;&lt;b&gt;&lt;font style=&quot;font-size: 12px&quot;&gt;&lt;/font&gt;&lt;/b&gt;&lt;/div&gt;" style="text;html=1;resizable=0;points=[];autosize=1;align=left;verticalAlign=top;spacingTop=-4;" vertex="1" parent="TPf8srN3C42zovDJcVEA-1">
+          <mxGeometry x="71" y="85" width="320" height="30" as="geometry"/>
         </mxCell>
       </root>
     </mxGraphModel>
