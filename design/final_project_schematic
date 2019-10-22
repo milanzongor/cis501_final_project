@@ -1,4 +1,4 @@
-<mxfile host="www.draw.io" modified="2019-10-22T17:02:33.836Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:69.0) Gecko/20100101 Firefox/69.0" etag="7SJqgPrG-QjPWUo5g5Xj" version="12.1.3" type="github" pages="2">
+<mxfile host="www.draw.io" modified="2019-10-22T17:26:17.401Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:69.0) Gecko/20100101 Firefox/69.0" etag="c5viog8__9_RPBbRCuYN" version="12.1.3" type="github" pages="4">
   <diagram id="_z4kQtNUOiMaieox2jux" name="use_cases">
     <mxGraphModel dx="868" dy="457" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -56,6 +56,28 @@
         <mxCell id="TPf8srN3C42zovDJcVEA-1" parent="TPf8srN3C42zovDJcVEA-0"/>
         <mxCell id="TPf8srN3C42zovDJcVEA-2" value="&lt;div&gt;&lt;b&gt;&lt;font style=&quot;font-size: 25px&quot;&gt;Log in/Sign in realization:&lt;/font&gt;&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;ol&gt;&lt;li&gt;&lt;span&gt;&lt;font style=&quot;font-size: 12px&quot;&gt;The user opens the client module.&lt;/font&gt;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;&lt;font style=&quot;font-size: 12px&quot;&gt;The Login window will pop up.&lt;/font&gt;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;&lt;font style=&quot;font-size: 12px&quot;&gt;The user types his login name.&lt;/font&gt;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;&lt;font style=&quot;font-size: 12px&quot;&gt;The user types his password.&lt;/font&gt;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;&lt;font style=&quot;font-size: 12px&quot;&gt;Clicks to the Log in button.&lt;/font&gt;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;&lt;font style=&quot;font-size: 12px&quot;&gt;The login credentials are sent to the server.&lt;/font&gt;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;&lt;font style=&quot;font-size: 12px&quot;&gt;Sever authenticates credentials.&lt;/font&gt;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;Login successful:&lt;/li&gt;&lt;li&gt;&lt;b&gt;A) &lt;/b&gt;If credential matches&lt;/li&gt;&lt;li&gt;&lt;b&gt;B) &lt;/b&gt;If new name - new account is created&lt;/li&gt;&lt;li&gt;Login unsuccessful:&lt;/li&gt;&lt;li&gt;&lt;b&gt;A)&amp;nbsp; &lt;/b&gt;If password doesn&#39;t match with the name.&lt;/li&gt;&lt;li&gt;If successful, the login window will close and open a new window with items.&lt;/li&gt;&lt;li&gt;If unsuccessful, the message &quot;Your password does not match with your user name&quot; will show in login window.&lt;br&gt;&lt;/li&gt;&lt;/ol&gt;&lt;/div&gt;" style="text;html=1;resizable=0;points=[];autosize=1;align=left;verticalAlign=top;spacingTop=-4;" parent="TPf8srN3C42zovDJcVEA-1" vertex="1">
           <mxGeometry x="70" y="80" width="660" height="240" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="iz5gm3ryej6xMmoPbmGd" name="place_bid_realization">
+    <mxGraphModel dx="395" dy="455" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="hf7fscyhwLrIcICWfdxs-0"/>
+        <mxCell id="hf7fscyhwLrIcICWfdxs-1" parent="hf7fscyhwLrIcICWfdxs-0"/>
+        <mxCell id="hf7fscyhwLrIcICWfdxs-2" value="&lt;div&gt;&lt;b&gt;&lt;font style=&quot;font-size: 25px&quot;&gt;Place bid realization:&lt;/font&gt;&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;ol&gt;&lt;li&gt;&lt;span&gt;&lt;/span&gt;Choose offered item from list.&lt;/li&gt;&lt;li&gt;Window with details will show up.&lt;/li&gt;&lt;li&gt;User types a bid price.&lt;/li&gt;&lt;li&gt;User clicks Place bid button.&lt;/li&gt;&lt;li&gt;Server checks validity of bid and place the bid if valid.&lt;/li&gt;&lt;li&gt;All windows of all connected clients should be updated.&lt;br&gt;&lt;/li&gt;&lt;/ol&gt;&lt;/div&gt;" style="text;html=1;resizable=0;points=[];autosize=1;align=left;verticalAlign=top;spacingTop=-4;" vertex="1" parent="hf7fscyhwLrIcICWfdxs-1">
+          <mxGeometry x="70" y="80" width="360" height="130" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="WAE89RahY17pcxlLlQ92" name="add_new_product_realization">
+    <mxGraphModel dx="395" dy="455" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="FBJxdmDHsGciytEEqL0g-0"/>
+        <mxCell id="FBJxdmDHsGciytEEqL0g-1" parent="FBJxdmDHsGciytEEqL0g-0"/>
+        <mxCell id="FBJxdmDHsGciytEEqL0g-2" value="&lt;div&gt;&lt;b&gt;&lt;font style=&quot;font-size: 25px&quot;&gt;Add a new product realization:&lt;/font&gt;&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;ol&gt;&lt;li&gt;&lt;span&gt;&lt;/span&gt;User clicks Add button&lt;/li&gt;&lt;li&gt;Add Product window pops up.&lt;/li&gt;&lt;li&gt;The user chooses a product.&lt;/li&gt;&lt;li&gt;The user clicks to the Add button.&lt;/li&gt;&lt;li&gt;The product is moved from add_product_list to offer_list.&lt;br&gt;&lt;/li&gt;&lt;/ol&gt;&lt;/div&gt;" style="text;html=1;resizable=0;points=[];autosize=1;align=left;verticalAlign=top;spacingTop=-4;" vertex="1" parent="FBJxdmDHsGciytEEqL0g-1">
+          <mxGeometry x="70" y="80" width="380" height="110" as="geometry"/>
         </mxCell>
       </root>
     </mxGraphModel>
