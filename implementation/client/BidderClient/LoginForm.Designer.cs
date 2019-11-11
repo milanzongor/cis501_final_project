@@ -54,7 +54,6 @@
             this.userPasswordLabel.TabIndex = 1;
             this.userPasswordLabel.Text = "Password";
             this.userPasswordLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            this.userPasswordLabel.Click += new System.EventHandler(this.label2_Click);
             // 
             // loginButton
             // 

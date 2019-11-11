@@ -11,14 +11,14 @@ namespace BidderClient
         private ClientModel itsModel;
         private ClientState itsState;
         private List<ClientObserver> registry;
-        public LoginHandler loginHangler { get; }
+        public LoginHandler loginHandler { get; }
         public PlaceBidHandler placeBidHandler { get; }
 
         public ClientController(ClientModel model)
         {
             itsModel = model;
             itsState = ClientState.UNAUTENTIZED;
-            loginHangler = new LoginHandler(this.loginHangler);
+            loginHandler = new LoginHandler(this.loginHandler);
             placeBidHandler = new PlaceBidHandler(this.placeBidHandler);
             registry = new List<ClientObserver>();
         }
