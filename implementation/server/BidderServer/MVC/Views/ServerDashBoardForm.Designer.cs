@@ -73,9 +73,9 @@
             // 
             // manageProductsButton
             // 
-            this.manageProductsButton.Location = new System.Drawing.Point(420, 1164);
+            this.manageProductsButton.Location = new System.Drawing.Point(275, 1156);
             this.manageProductsButton.Name = "manageProductsButton";
-            this.manageProductsButton.Size = new System.Drawing.Size(204, 89);
+            this.manageProductsButton.Size = new System.Drawing.Size(505, 89);
             this.manageProductsButton.TabIndex = 4;
             this.manageProductsButton.Text = "Manage Products";
             this.manageProductsButton.UseVisualStyleBackColor = true;

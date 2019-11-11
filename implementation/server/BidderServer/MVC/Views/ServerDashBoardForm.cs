@@ -16,13 +16,13 @@ namespace BidderServer
         private ServerState itsState;
         private ServerModel itsModel;
         private ManageProductsHandler manageProductsHandler;
-        public ServerObserver updateDelegate { get; }
+        public ServerObserver updateObserver { get; }
 
         public ServerDashBoardForm(ServerModel model, ManageProductsHandler manageProductsHandler)
         {
             this.itsModel = model;
             this.itsState = ServerState.MONITORING_STATE;
-            this.updateDelegate = this.update;
+            this.updateObserver = this.update;
             this.manageProductsHandler = manageProductsHandler;
 
             InitializeComponent();

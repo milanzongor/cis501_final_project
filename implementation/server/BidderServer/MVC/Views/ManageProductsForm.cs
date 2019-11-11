@@ -20,7 +20,7 @@ namespace BidderServer
         private ModifyProductHandler modifyProductHandler;
         private StartProductAuctionHandler startProductAuctionHandler;
         private StopProductAuctionHandler stopProductAuctionHandler;
-        public ServerObserver updateDelegate { get; }
+        public ServerObserver updateObserver { get; }
 
         public ManageProductsForm(
             ServerModel model,
@@ -33,7 +33,7 @@ namespace BidderServer
         {
             this.itsModel = model;
             this.itsState = ServerState.MONITORING_STATE;
-            this.updateDelegate = this.update;
+            this.updateObserver = this.update;
             this.addProductHandler = addProductHandler;
             this.removeProductHandler = removeProductHandler;
             this.modifyProductHandler = modifyProductHandler;
