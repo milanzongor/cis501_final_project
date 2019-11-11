@@ -45,7 +45,6 @@ namespace BidderServer
 
         private void AddProductButton_Click(object sender, EventArgs e)
         {
-
         }
 
         private void RemoveProductButton_Click(object sender, EventArgs e)
@@ -70,7 +69,20 @@ namespace BidderServer
 
         private void update(ServerState newState)
         {
-            // TODO
+            this.itsState = newState;
+
+            if (itsState == ServerState.MANAGING_PRODUCTS || itsState == ServerState.PRODUCT_ADDED_SUCCESSFULLY || itsState == ServerState.DUPLICATE_PRODUCT_NOT_ADDED)
+            {
+                this.Show();
+            } else
+            {
+                this.Hide();
+            }
+        }
+
+        private void ManageProductsForm_Closed(object sender, FormClosedEventArgs e)
+        {
+
         }
     }
 }

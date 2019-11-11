@@ -53,7 +53,7 @@ namespace BidderServer.MVC
 
         private void handleManageProductsButton()
         {
-
+            setState(ServerState.MANAGING_PRODUCTS);
         }
         private void handleAddProduct(Product product)
         {

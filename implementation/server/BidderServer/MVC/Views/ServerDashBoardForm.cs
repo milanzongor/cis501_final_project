@@ -35,7 +35,15 @@ namespace BidderServer
 
         private void update(ServerState newState)
         {
-            // TODO
+            this.itsState = newState;
+
+            if (itsState == ServerState.MONITORING_STATE || itsState == ServerState.NEW_CLIENT_CONNECTED)
+            {
+                this.Show();
+            } else
+            {
+                this.Hide();
+            }
         }
     }
 }
