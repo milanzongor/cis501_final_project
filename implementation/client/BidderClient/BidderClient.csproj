@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClientController.cs" />
     <Compile Include="ClientDelegatesDeclaration.cs" />
     <Compile Include="ClientModel.cs" />
     <Compile Include="ClientState.cs" />
@@ -76,9 +77,6 @@
     <Compile Include="Shared\ProductStatus.cs" />
     <Compile Include="Shared\SellingStatus.cs" />
     <Compile Include="Shared\User.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
