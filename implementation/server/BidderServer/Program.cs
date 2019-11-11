@@ -16,7 +16,7 @@ namespace BidderServer
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new ManageProductsForm());
+            // Application.Run(new ManageProductsForm());
         }
     }
 }
