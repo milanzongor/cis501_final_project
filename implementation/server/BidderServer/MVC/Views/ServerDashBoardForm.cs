@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BidderServer.MVC;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +13,29 @@ namespace BidderServer
 {
     public partial class ServerDashBoardForm : Form
     {
-        public ServerDashBoardForm()
+        private ServerState itsState;
+        private ServerModel itsModel;
+        private ManageProductsHandler manageProductsHandler;
+        public ServerObserver updateDelegate { get; }
+
+        public ServerDashBoardForm(ServerModel model, ManageProductsHandler manageProductsHandler)
         {
+            this.itsModel = model;
+            this.itsState = ServerState.MONITORING_STATE;
+            this.updateDelegate = this.update;
+            this.manageProductsHandler = manageProductsHandler;
+
             InitializeComponent();
+        }
+
+        private void ManageProductsButton_Click(object sender, EventArgs e)
+        {
+            manageProductsHandler();
+        }
+
+        private void update(ServerState newState)
+        {
+            // TODO
         }
     }
 }
