@@ -54,6 +54,13 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Shared\Bid.cs" />
+    <Compile Include="Shared\Credentials.cs" />
+    <Compile Include="Shared\Item.cs" />
+    <Compile Include="Shared\Product.cs" />
+    <Compile Include="Shared\ProductStatus.cs" />
+    <Compile Include="Shared\SellingStatus.cs" />
+    <Compile Include="Shared\User.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
