@@ -1,8 +1,0 @@
-D:\School\CIS501\cis501_final_project\implementation\client\BidderClient\BidderClient\bin\Debug\BidderClient.exe.config
-D:\School\CIS501\cis501_final_project\implementation\client\BidderClient\BidderClient\bin\Debug\BidderClient.exe
-D:\School\CIS501\cis501_final_project\implementation\client\BidderClient\BidderClient\bin\Debug\BidderClient.pdb
-D:\School\CIS501\cis501_final_project\implementation\client\BidderClient\BidderClient\obj\Debug\BidderClient.csprojAssemblyReference.cache
-D:\School\CIS501\cis501_final_project\implementation\client\BidderClient\BidderClient\obj\Debug\BidderClient.Properties.Resources.resources
-D:\School\CIS501\cis501_final_project\implementation\client\BidderClient\BidderClient\obj\Debug\BidderClient.csproj.GenerateResource.cache
-D:\School\CIS501\cis501_final_project\implementation\client\BidderClient\BidderClient\obj\Debug\BidderClient.exe
-D:\School\CIS501\cis501_final_project\implementation\client\BidderClient\BidderClient\obj\Debug\BidderClient.pdb
