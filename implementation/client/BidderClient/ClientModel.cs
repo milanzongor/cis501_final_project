@@ -10,6 +10,5 @@ namespace BidderClient
     {
         public List<Shared.Product> productInventory { get; set; }
         public Shared.User User { get; set; }
-
     }
 }
