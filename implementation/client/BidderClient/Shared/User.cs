@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BidderClient.Shared
 {
-    class User
+    public class User
     {
         public string userID { get; }
         public Credentials credentials { get; }
