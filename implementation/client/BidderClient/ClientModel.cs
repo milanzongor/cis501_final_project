@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BidderClient
 {
-    class ClientModel
+    public class ClientModel
     {
         public List<Shared.Product> productInventory { get; set; }
         public Shared.User User { get; set; }

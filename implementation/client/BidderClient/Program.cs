@@ -16,6 +16,17 @@ namespace BidderClient
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            ClientModel model = new ClientModel();
+
+            //ClientController controller = new ClientController(model);
+            //AlarmForm view = new AlarmForm(
+            //    model,
+            //    controller.button1ClickHandler,
+            //    controller.button2ClickHandler,
+            //    controller.timerTickHandler); // delegates provide compile protecting agains swapping args: cannot convert from 'AlarmClock.Button2ClickHandler' to 'AlarmClock.Button1ClickHandler'
+            //controller.registerObserver(view.updateDelegate);
+            //controller.notifyObservers(); // force form to render initial state
             Application.Run(new LoginForm());
         }
     }
