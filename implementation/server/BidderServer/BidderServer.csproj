@@ -52,6 +52,8 @@
     <Compile Include="ManageProductsForm.Designer.cs">
       <DependentUpon>ManageProductsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ServerDelegatesDeclaration.cs" />
+    <Compile Include="ServerState.cs" />
     <Compile Include="Shared\Bid.cs" />
     <Compile Include="Shared\Credentials.cs" />
     <Compile Include="ServerDashBoardForm.cs">

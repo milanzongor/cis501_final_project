@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BidderClient.Shared
 {
-    class Item
+    public class Item
     {
         public string name { get; set; }
         public double startingBidPrice { get; }
