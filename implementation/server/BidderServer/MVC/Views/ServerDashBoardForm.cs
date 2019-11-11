@@ -16,13 +16,13 @@ namespace BidderServer
         private ServerState itsState;
         private ServerModel itsModel;
         private ManageProductsHandler manageProductsHandler;
-        public ServerObserver updateDelegate { get; }
+        public ServerObserver updateObserver { get; }
 
         public ServerDashBoardForm(ServerModel model, ManageProductsHandler manageProductsHandler)
         {
             this.itsModel = model;
             this.itsState = ServerState.MONITORING_STATE;
-            this.updateDelegate = this.update;
+            this.updateObserver = this.update;
             this.manageProductsHandler = manageProductsHandler;
 
             InitializeComponent();
@@ -35,7 +35,15 @@ namespace BidderServer
 
         private void update(ServerState newState)
         {
-            // TODO
+            this.itsState = newState;
+
+            if (itsState == ServerState.MONITORING_STATE || itsState == ServerState.NEW_CLIENT_CONNECTED)
+            {
+                this.Show();
+            } else
+            {
+                this.Hide();
+            }
         }
     }
 }

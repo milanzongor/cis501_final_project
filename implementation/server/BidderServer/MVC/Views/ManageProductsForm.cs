@@ -20,7 +20,7 @@ namespace BidderServer
         private ModifyProductHandler modifyProductHandler;
         private StartProductAuctionHandler startProductAuctionHandler;
         private StopProductAuctionHandler stopProductAuctionHandler;
-        public ServerObserver updateDelegate { get; }
+        public ServerObserver updateObserver { get; }
 
         public ManageProductsForm(
             ServerModel model,
@@ -33,7 +33,7 @@ namespace BidderServer
         {
             this.itsModel = model;
             this.itsState = ServerState.MONITORING_STATE;
-            this.updateDelegate = this.update;
+            this.updateObserver = this.update;
             this.addProductHandler = addProductHandler;
             this.removeProductHandler = removeProductHandler;
             this.modifyProductHandler = modifyProductHandler;
@@ -45,7 +45,6 @@ namespace BidderServer
 
         private void AddProductButton_Click(object sender, EventArgs e)
         {
-
         }
 
         private void RemoveProductButton_Click(object sender, EventArgs e)
@@ -70,7 +69,20 @@ namespace BidderServer
 
         private void update(ServerState newState)
         {
-            // TODO
+            this.itsState = newState;
+
+            if (itsState == ServerState.MANAGING_PRODUCTS || itsState == ServerState.PRODUCT_ADDED_SUCCESSFULLY || itsState == ServerState.DUPLICATE_PRODUCT_NOT_ADDED)
+            {
+                this.Show();
+            } else
+            {
+                this.Hide();
+            }
+        }
+
+        private void ManageProductsForm_Closed(object sender, FormClosedEventArgs e)
+        {
+
         }
     }
 }
