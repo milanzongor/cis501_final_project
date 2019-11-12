@@ -9,7 +9,7 @@ namespace BidderServer.MVC
 {
     public class ServerModel
     {
-        public Dictionary<int, Product> productsInventory { get; }
+        public Dictionary<int, Product> productsInventory { get; set; }
         public List<User> connectedUsers { get; }
 
         public ServerModel()

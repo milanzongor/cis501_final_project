@@ -1,7 +1,10 @@
 ﻿using BidderClient.Shared;
+using BidderServer.Config;
 using BidderServer.Proxy;
+using CsvHelper;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,6 +37,8 @@ namespace BidderServer.MVC
             this.startProductAuctionHandler = this.handleStartProductAuction;
             this.stopProductAuctionHandler = this.handleStopProductAuction;
             this.productsFormClosedHandler = this.handleProductFormClosed;
+
+            fillProductInventoryFromStartupConfiguration();
         }
 
         public void registerObserver(ServerObserver observer)
@@ -95,7 +100,30 @@ namespace BidderServer.MVC
 
         private void fillProductInventoryFromStartupConfiguration()
         {
+            Dictionary<int, Product> productsInventory = new Dictionary<int, Product>();
+            using (var reader = new StringReader(Properties.Resources.products_config))
+            using (var csv = new CsvReader(reader))
+            {
+                var records = csv.GetRecords<CSVProductEntry>();
+                List<CSVProductEntry> productsList = records.ToList();
 
+                foreach (CSVProductEntry productEntry in productsList)
+                {
+                    ProductStatus productStatus;
+                    if (productEntry.status.Equals("active"))
+                    {
+                        productStatus = ProductStatus.ACTIVE;
+                    } else
+                    {
+                        productStatus = ProductStatus.DISABLED;
+                    }
+                    Item item = new Item(productEntry.productName, productEntry.startingBidPrice);
+                    Product product = new Product(productEntry.productID, item, productStatus);
+                    productsInventory.Add(product.productID, product);
+                }
+            }
+
+            this.itsModel.productsInventory = productsInventory;
         }
         private bool validateBid(Bid bid)
         {
