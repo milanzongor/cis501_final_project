@@ -68,7 +68,8 @@ namespace BidderServer.MVC
         }
         private void handleRemoveProduct(int productID)
         {
-
+            this.itsModel.productsInventory.Remove(productID);
+            notifyObservers();
         }
         private void handleModifyProduct(Product product)
         {
@@ -76,11 +77,23 @@ namespace BidderServer.MVC
         }
         private void handleStartProductAuction(int productID)
         {
-
+            Product product;
+            this.itsModel.productsInventory.TryGetValue(productID, out product);
+            if (product != null)
+            {
+                product.productStatus = ProductStatus.ACTIVE;
+            }
+            notifyObservers();
         }
         private void handleStopProductAuction(int productID)
         {
-
+            Product product;
+            this.itsModel.productsInventory.TryGetValue(productID, out product);
+            if (product != null)
+            {
+                product.productStatus = ProductStatus.DISABLED;
+            }
+            notifyObservers();
         }
 
         private void handleProductFormClosed()

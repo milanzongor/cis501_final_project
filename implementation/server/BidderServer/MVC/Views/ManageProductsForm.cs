@@ -102,5 +102,21 @@ namespace BidderServer
             productsFormClosedHandler();
             e.Cancel = true; // prevents form disposure
         }
+
+        private void ManageProductsForm_VisibleChanged(object sender, EventArgs e)
+        {
+            this.removeProductButton.Enabled = false;
+            this.modifyProductButton.Enabled = false;
+            this.startProductAuction.Enabled = false;
+            this.stopProductAuction.Enabled = false;
+        }
+
+        private void ProductsList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.removeProductButton.Enabled = true;
+            this.modifyProductButton.Enabled = true;
+            this.startProductAuction.Enabled = true;
+            this.stopProductAuction.Enabled = true;
+        }
     }
 }

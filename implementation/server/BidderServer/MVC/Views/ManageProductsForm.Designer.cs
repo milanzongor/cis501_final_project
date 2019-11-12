@@ -46,6 +46,7 @@
             this.productsList.TabIndex = 0;
             this.productsList.UseCompatibleStateImageBehavior = false;
             this.productsList.View = System.Windows.Forms.View.List;
+            this.productsList.SelectedIndexChanged += new System.EventHandler(this.ProductsList_SelectedIndexChanged);
             // 
             // addProductButton
             // 
@@ -113,6 +114,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ManageProductsForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ManageProductsForm_Closing);
+            this.VisibleChanged += new System.EventHandler(this.ManageProductsForm_VisibleChanged);
             this.ResumeLayout(false);
 
         }
