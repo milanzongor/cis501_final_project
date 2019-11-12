@@ -27,7 +27,7 @@ namespace BidderClient.Shared
 
         public override string ToString()
         {
-            string part1 = item.name + ", " + productStatus + ", " + sellingStatus + " : " + numberOfBids + " bids";
+            string part1 = productID + ") " + item.name + ", " + productStatus + ", " + sellingStatus + ": " + numberOfBids + " bids";
             if (currentHighestBid != null)
             {
                 string part2 = ", highest " + currentHighestBid.bidder.credentials.userName + " [" + currentHighestBid.value + "]";
@@ -36,8 +36,6 @@ namespace BidderClient.Shared
             {
                 return part1;
             }
-
-
         }
     }
 }

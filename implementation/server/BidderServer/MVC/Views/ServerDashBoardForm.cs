@@ -43,18 +43,18 @@ namespace BidderServer
             {
                 this.Show();
 
+                this.productsDetailsList.Items.Clear();
                 foreach (var keyValuePair in this.itsModel.productsInventory)
                 {
                     Product product = keyValuePair.Value;
                     this.productsDetailsList.Items.Add(product.ToString());
                 }
 
+                this.connectedUsersList.Items.Clear();
                 foreach (var user in this.itsModel.connectedUsers)
                 {
-                    this.productsDetailsList.Items.Add(user.credentials.userName);
+                    this.connectedUsersList.Items.Add(user.credentials.userName);
                 }
-
-
             } else
             {
                 this.Hide();

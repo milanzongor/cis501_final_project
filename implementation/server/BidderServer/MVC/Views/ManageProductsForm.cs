@@ -1,4 +1,5 @@
-﻿using BidderServer.MVC;
+﻿using BidderClient.Shared;
+using BidderServer.MVC;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -53,7 +54,7 @@ namespace BidderServer
 
         private void RemoveProductButton_Click(object sender, EventArgs e)
         {
-
+            removeProductHandler(getProductIDFromDescription(this.productsList.SelectedItems[0].Text));
         }
 
         private void ModifyProductButton_Click(object sender, EventArgs e)
@@ -63,12 +64,17 @@ namespace BidderServer
 
         private void StartProductAuction_Click(object sender, EventArgs e)
         {
-
+            startProductAuctionHandler(getProductIDFromDescription(this.productsList.SelectedItems[0].Text));
         }
 
         private void StopProductAuction_Click(object sender, EventArgs e)
         {
+            stopProductAuctionHandler(getProductIDFromDescription(this.productsList.SelectedItems[0].Text));
+        }
 
+        private int getProductIDFromDescription(string productDesc)
+        {
+            return Int32.Parse(productDesc.Substring(0, productDesc.IndexOf(')')));
         }
 
         private void update(ServerState newState)
@@ -78,6 +84,13 @@ namespace BidderServer
             if (itsState == ServerState.MANAGING_PRODUCTS || itsState == ServerState.PRODUCT_ADDED_SUCCESSFULLY || itsState == ServerState.DUPLICATE_PRODUCT_NOT_ADDED)
             {
                 this.Show();
+
+                this.productsList.Items.Clear();
+                foreach (var keyValuePair in this.itsModel.productsInventory)
+                {
+                    Product product = keyValuePair.Value;
+                    this.productsList.Items.Add(product.productID + ") " + product.item.name + " - " + product.productStatus);
+                }
             } else
             {
                 this.Hide();
