@@ -1,4 +1,5 @@
-﻿using BidderServer.MVC;
+﻿using BidderClient.Shared;
+using BidderServer.MVC;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -26,6 +27,7 @@ namespace BidderServer
             this.manageProductsHandler = manageProductsHandler;
 
             InitializeComponent();
+            update(itsState);
         }
 
         private void ManageProductsButton_Click(object sender, EventArgs e)
@@ -40,6 +42,19 @@ namespace BidderServer
             if (itsState == ServerState.MONITORING_STATE || itsState == ServerState.NEW_CLIENT_CONNECTED)
             {
                 this.Show();
+
+                foreach (var keyValuePair in this.itsModel.productsInventory)
+                {
+                    Product product = keyValuePair.Value;
+                    this.productsDetailsList.Items.Add(product.ToString());
+                }
+
+                foreach (var user in this.itsModel.connectedUsers)
+                {
+                    this.productsDetailsList.Items.Add(user.credentials.userName);
+                }
+
+
             } else
             {
                 this.Hide();

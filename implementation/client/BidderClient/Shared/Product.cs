@@ -14,7 +14,7 @@ namespace BidderClient.Shared
         public SellingStatus sellingStatus { get; set; }
         public Bid currentHighestBid { get; set; }
 
-        public Product(int productID, Item item, ProductStatus productStatus) 
+        public Product(int productID, Item item, ProductStatus productStatus)
         {
             this.productID = productID;
             this.item = item;
@@ -22,5 +22,17 @@ namespace BidderClient.Shared
             this.sellingStatus = SellingStatus.UNTAKEN;
             currentHighestBid = null;
         }
+
+        public override string ToString()
+        {
+            string part1 = item.name + ", " + productStatus + ", " + sellingStatus + " : " + numberOfBids + " bids";
+            if (currentHighestBid != null)
+            {
+                string part2 = ", highest " + currentHighestBid.bidder.credentials.userName + " [" + currentHighestBid.value + "]";
+                return part1 + part2;
+            } else
+            {
+                return part1;
+            }
     }
 }

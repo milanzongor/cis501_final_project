@@ -39,10 +39,12 @@
             // 
             this.productsDetailsList.HideSelection = false;
             this.productsDetailsList.Location = new System.Drawing.Point(25, 75);
+            this.productsDetailsList.MultiSelect = false;
             this.productsDetailsList.Name = "productsDetailsList";
             this.productsDetailsList.Size = new System.Drawing.Size(1011, 1075);
             this.productsDetailsList.TabIndex = 0;
             this.productsDetailsList.UseCompatibleStateImageBehavior = false;
+            this.productsDetailsList.View = System.Windows.Forms.View.List;
             // 
             // label1
             // 
@@ -57,10 +59,12 @@
             // 
             this.connectedUsersList.HideSelection = false;
             this.connectedUsersList.Location = new System.Drawing.Point(1070, 75);
+            this.connectedUsersList.MultiSelect = false;
             this.connectedUsersList.Name = "connectedUsersList";
             this.connectedUsersList.Size = new System.Drawing.Size(409, 1075);
             this.connectedUsersList.TabIndex = 2;
             this.connectedUsersList.UseCompatibleStateImageBehavior = false;
+            this.connectedUsersList.View = System.Windows.Forms.View.List;
             // 
             // label2
             // 

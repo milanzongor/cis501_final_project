@@ -44,6 +44,7 @@ namespace BidderServer
             this.productsFormClosedHandler = productsFormClosedHandler;
 
             InitializeComponent();
+            this.update(itsState);
         }
 
         private void AddProductButton_Click(object sender, EventArgs e)

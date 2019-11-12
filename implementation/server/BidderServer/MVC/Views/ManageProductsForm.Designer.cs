@@ -40,10 +40,12 @@
             // 
             this.productsList.HideSelection = false;
             this.productsList.Location = new System.Drawing.Point(12, 12);
+            this.productsList.MultiSelect = false;
             this.productsList.Name = "productsList";
             this.productsList.Size = new System.Drawing.Size(744, 800);
             this.productsList.TabIndex = 0;
             this.productsList.UseCompatibleStateImageBehavior = false;
+            this.productsList.View = System.Windows.Forms.View.List;
             // 
             // addProductButton
             // 
