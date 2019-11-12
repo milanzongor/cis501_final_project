@@ -110,7 +110,7 @@
             this.Name = "ManageProductsForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ManageProductsForm";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ManageProductsForm_Closed);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ManageProductsForm_Closing);
             this.ResumeLayout(false);
 
         }

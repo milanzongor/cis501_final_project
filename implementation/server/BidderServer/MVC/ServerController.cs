@@ -20,6 +20,7 @@ namespace BidderServer.MVC
         public ModifyProductHandler modifyProductHandler { get; }
         public StartProductAuctionHandler startProductAuctionHandler { get; }
         public StopProductAuctionHandler stopProductAuctionHandler { get; }
+        public ProductsFormClosedHandler productsFormClosedHandler { get; }
 
         public ServerController(ServerModel model)
         {
@@ -32,6 +33,7 @@ namespace BidderServer.MVC
             this.modifyProductHandler = this.modifyProductHandler;
             this.startProductAuctionHandler = this.handleStartProductAuction;
             this.stopProductAuctionHandler = this.handleStopProductAuction;
+            this.productsFormClosedHandler = this.handleProductFormClosed;
         }
 
         public void registerObserver(ServerObserver observer)
@@ -74,6 +76,11 @@ namespace BidderServer.MVC
         private void handleStopProductAuction(int productID)
         {
 
+        }
+
+        private void handleProductFormClosed()
+        {
+            setState(ServerState.MONITORING_STATE);
         }
 
         public bool autentizate(string userName, string password)

@@ -14,4 +14,5 @@ namespace BidderServer
     public delegate void ModifyProductHandler(Product product);
     public delegate void StartProductAuctionHandler(int productID);
     public delegate void StopProductAuctionHandler(int productID);
+    public delegate void ProductsFormClosedHandler();
 }

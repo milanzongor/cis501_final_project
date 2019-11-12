@@ -20,6 +20,7 @@ namespace BidderServer
         private ModifyProductHandler modifyProductHandler;
         private StartProductAuctionHandler startProductAuctionHandler;
         private StopProductAuctionHandler stopProductAuctionHandler;
+        private ProductsFormClosedHandler productsFormClosedHandler;
         public ServerObserver updateObserver { get; }
 
         public ManageProductsForm(
@@ -28,7 +29,8 @@ namespace BidderServer
             RemoveProductHandler removeProductHandler,
             ModifyProductHandler modifyProductHandler,
             StartProductAuctionHandler startProductAuctionHandler,
-            StopProductAuctionHandler stopProductAuctionHandler
+            StopProductAuctionHandler stopProductAuctionHandler,
+            ProductsFormClosedHandler productsFormClosedHandler
             )
         {
             this.itsModel = model;
@@ -39,6 +41,7 @@ namespace BidderServer
             this.modifyProductHandler = modifyProductHandler;
             this.startProductAuctionHandler = startProductAuctionHandler;
             this.stopProductAuctionHandler = stopProductAuctionHandler;
+            this.productsFormClosedHandler = productsFormClosedHandler;
 
             InitializeComponent();
         }
@@ -80,9 +83,10 @@ namespace BidderServer
             }
         }
 
-        private void ManageProductsForm_Closed(object sender, FormClosedEventArgs e)
+        private void ManageProductsForm_Closing(object sender, FormClosingEventArgs e)
         {
-
+            productsFormClosedHandler();
+            e.Cancel = true; // prevents form disposure
         }
     }
 }

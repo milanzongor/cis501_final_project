@@ -32,7 +32,8 @@ namespace BidderServer
                 controller.removeProductHandler,
                 controller.modifyProductHandler,
                 controller.startProductAuctionHandler,
-                controller.stopProductAuctionHandler
+                controller.stopProductAuctionHandler,
+                controller.productsFormClosedHandler
                 );
 
             controller.registerObserver(serverDashBoardForm.updateObserver);
