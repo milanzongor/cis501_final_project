@@ -51,8 +51,9 @@ namespace BidderServer
                 }
 
                 this.connectedUsersList.Items.Clear();
-                foreach (var user in this.itsModel.connectedUsers)
+                foreach (var entry in this.itsModel.connectedUsers)
                 {
+                    User user = entry.Value;
                     this.connectedUsersList.Items.Add(user.credentials.userName);
                 }
             } else

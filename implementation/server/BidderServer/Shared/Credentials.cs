@@ -17,8 +17,9 @@ namespace BidderClient.Shared
             this.password = password;
         }
 
-        public bool compareTo(Credentials other)
+        public override bool Equals(object obj)
         {
+            Credentials other = (Credentials) obj;
             return this.userName.Equals(other.userName) &&
                 this.password.Equals(other.password);
         }

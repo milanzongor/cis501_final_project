@@ -16,9 +16,9 @@ namespace BidderServer.Proxy
             this.itsRealSubject = realSubject;
         }
 
-        public bool autentizate(string userName, string password)
+        public bool autentizate(Credentials credentials)
         {
-            return itsRealSubject.autentizate(userName, password);
+            return itsRealSubject.autentizate(credentials);
         }
 
         public bool bidProduct(int productID, double bidValue, User bidder)

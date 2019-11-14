@@ -9,7 +9,7 @@ namespace BidderServer.Proxy
 {
     public interface ServerAPI
     {
-        bool autentizate(string userName, string password);
+        bool autentizate(Credentials credentials);
         bool bidProduct(int productID, double bidValue, User bidder);
     }
 }

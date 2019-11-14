@@ -8,10 +8,10 @@ namespace BidderClient.Shared
 {
     public class User
     {
-        public string userID { get; }
+        public int userID { get; }
         public Credentials credentials { get; }
 
-        public User(string userID, Credentials credentials)
+        public User(int userID, Credentials credentials)
         {
             this.userID = userID;
             this.credentials = credentials;

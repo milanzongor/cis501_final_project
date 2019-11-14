@@ -58,12 +58,41 @@ namespace BidderServer.MVC
             notifyObservers();
         }
 
+        private void fillProductInventoryFromStartupConfiguration()
+        {
+            Dictionary<int, Product> productsInventory = new Dictionary<int, Product>();
+            using (var reader = new StringReader(Properties.Resources.products_config))
+            using (var csv = new CsvReader(reader))
+            {
+                var records = csv.GetRecords<CSVProductEntry>();
+                List<CSVProductEntry> productsList = records.ToList();
+
+                foreach (CSVProductEntry productEntry in productsList)
+                {
+                    ProductStatus productStatus;
+                    if (productEntry.status.Equals("active"))
+                    {
+                        productStatus = ProductStatus.ACTIVE;
+                    }
+                    else
+                    {
+                        productStatus = ProductStatus.DISABLED;
+                    }
+                    Item item = new Item(productEntry.productName, productEntry.startingBidPrice);
+                    Product product = new Product(productEntry.productID, item, productStatus);
+                    productsInventory.Add(product.productID, product);
+                }
+            }
+
+            this.itsModel.productsInventory = productsInventory;
+        }
+
         private void handleManageProductsButton()
         {
             setState(ServerState.MANAGING_PRODUCTS);
         }
 
-        private int getHighestID()
+        private int getHighestProductID()
         {
             int highestID = 0;
 
@@ -94,7 +123,7 @@ namespace BidderServer.MVC
         {
             if (!isDuplicateInDB(productName))
             { 
-                int highestProductID = getHighestID();
+                int highestProductID = getHighestProductID();
                 Item newItem = new Item(productName, productStartingPrice);
                 Product newProduct = new Product(highestProductID + 1, newItem, ProductStatus.DISABLED);
 
@@ -143,46 +172,68 @@ namespace BidderServer.MVC
             setState(ServerState.MONITORING_STATE);
         }
 
-        public bool autentizate(string userName, string password)
+        private int getUserIDFromDB(string userName)
         {
-            throw new NotImplementedException();
-        }
-
-        public bool bidProduct(int productID, double bidValue, User bidder)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void fillProductInventoryFromStartupConfiguration()
-        {
-            Dictionary<int, Product> productsInventory = new Dictionary<int, Product>();
-            using (var reader = new StringReader(Properties.Resources.products_config))
-            using (var csv = new CsvReader(reader))
+            foreach (var entry in this.itsModel.connectedUsers)
             {
-                var records = csv.GetRecords<CSVProductEntry>();
-                List<CSVProductEntry> productsList = records.ToList();
-
-                foreach (CSVProductEntry productEntry in productsList)
+                if (entry.Value.credentials.userName.Equals(userName))
                 {
-                    ProductStatus productStatus;
-                    if (productEntry.status.Equals("active"))
-                    {
-                        productStatus = ProductStatus.ACTIVE;
-                    } else
-                    {
-                        productStatus = ProductStatus.DISABLED;
-                    }
-                    Item item = new Item(productEntry.productName, productEntry.startingBidPrice);
-                    Product product = new Product(productEntry.productID, item, productStatus);
-                    productsInventory.Add(product.productID, product);
+                    return entry.Key;
+                }
+            }
+            return -1;
+        }
+
+        private int getHighestUserID()
+        {
+            int highestID = 0;
+
+            foreach (var entry in this.itsModel.connectedUsers)
+            {
+                if (entry.Key > highestID)
+                {
+                    highestID = entry.Key;
                 }
             }
 
-            this.itsModel.productsInventory = productsInventory;
+            return highestID;
         }
-        private bool validateBid(Bid bid)
+
+        public bool autentizate(Credentials credentials)
         {
-            throw new NotImplementedException();
+            int userID = getUserIDFromDB(credentials.userName);
+
+            if (userID != -1)
+            {
+                return this.itsModel.connectedUsers[userID].credentials.Equals(credentials);
+            } else
+            {
+                // new user, add him with entered password
+                userID = getHighestUserID();
+                User newUser = new User(userID, credentials);
+                this.itsModel.connectedUsers.Add(userID, newUser);
+                return true;
+            }
+        }
+
+        private bool isValidBid(int productID, Bid bid)
+        {
+            Bid currentHighestBid = this.itsModel.productsInventory[productID].currentHighestBid;
+            return bid.value > currentHighestBid.value && bid.timestamp > currentHighestBid.timestamp;
+        }
+        public bool bidProduct(int productID, double bidValue, User bidder)
+        {
+            Bid bid = new Bid(bidder, bidValue, DateTime.Now);
+            if (isValidBid(productID, bid))
+            {
+                Product product = this.itsModel.productsInventory[productID];
+                product.numberOfBids++;
+                product.currentHighestBid = bid;
+                return true;
+            } else
+            {
+                return false;
+            }
         }
 
         void getClientsSocket(string userID) // TODO WebSocketSharp
