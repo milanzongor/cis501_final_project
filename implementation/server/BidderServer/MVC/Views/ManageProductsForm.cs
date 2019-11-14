@@ -1,5 +1,6 @@
 ﻿using BidderClient.Shared;
 using BidderServer.MVC;
+using BidderServer.MVC.Views.DialogForms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -50,6 +51,18 @@ namespace BidderServer
 
         private void AddProductButton_Click(object sender, EventArgs e)
         {
+            ProductDialogWindow productDialogWindow = new ProductDialogWindow(
+                "Add Product Form", 
+                "Enter new product name:",
+                "",
+                this.handleDialogOKButtonWhenAddingProduct);
+
+            productDialogWindow.ShowDialog();
+        }
+
+        private void handleDialogOKButtonWhenAddingProduct(string userInput)
+        {
+            addProductHandler(userInput);
         }
 
         private void RemoveProductButton_Click(object sender, EventArgs e)
@@ -57,9 +70,20 @@ namespace BidderServer
             removeProductHandler(getProductIDFromDescription(this.productsList.SelectedItems[0].Text));
         }
 
-        private void ModifyProductButton_Click(object sender, EventArgs e)
+        private void handleDialogOKButtonWhenModifyingProduct(string userInput)
         {
 
+        }
+
+        private void ModifyProductButton_Click(object sender, EventArgs e)
+        {
+            ProductDialogWindow productDialogWindow = new ProductDialogWindow(
+                "Add Product Form",
+                "Enter new product name:",
+                "TODO",
+            this.handleDialogOKButtonWhenModifyingProduct);
+
+            productDialogWindow.ShowDialog();
         }
 
         private void StartProductAuction_Click(object sender, EventArgs e)

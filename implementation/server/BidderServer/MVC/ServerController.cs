@@ -62,16 +62,52 @@ namespace BidderServer.MVC
         {
             setState(ServerState.MANAGING_PRODUCTS);
         }
-        private void handleAddProduct(Product product)
-        {
 
+        private int getHighestID()
+        {
+            int highestID = 0;
+
+            foreach(var entry in this.itsModel.productsInventory)
+            {
+                if (entry.Key > highestID)
+                {
+                    highestID = entry.Key;
+                }
+            }
+
+            return highestID;
+        }
+
+        private bool isDuplicateInDB(string productName)
+        {
+            foreach (var entry in this.itsModel.productsInventory)
+            {
+                if (entry.Value.item.name.Equals(productName))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private void handleAddProduct(string productName)
+        {
+            if (!isDuplicateInDB(productName))
+            { 
+                int highestProductID = getHighestID();
+                Item newItem = new Item(productName, 1.0);
+                Product newProduct = new Product(highestProductID + 1, newItem, ProductStatus.DISABLED);
+
+                this.itsModel.productsInventory.Add(highestProductID + 1, newProduct);
+                notifyObservers();
+            }
         }
         private void handleRemoveProduct(int productID)
         {
             this.itsModel.productsInventory.Remove(productID);
             notifyObservers();
         }
-        private void handleModifyProduct(Product product)
+        private void handleModifyProduct(int productID, string newProductName)
         {
 
         }
