@@ -67,6 +67,7 @@ namespace BidderServer
         private void RemoveProductButton_Click(object sender, EventArgs e)
         {
             removeProductHandler(getProductIDFromDescription(this.productsList.SelectedItems[0].Text));
+            disableIfNothingIsSelected();
         }
 
         private void handleDialogOKButtonWhenModifyingProduct(int productID, string productName, double productStartingPrice)
@@ -84,16 +85,19 @@ namespace BidderServer
             this.handleDialogOKButtonWhenModifyingProduct);
 
             productDialogWindow.ShowDialog();
+            disableIfNothingIsSelected();
         }
 
         private void StartProductAuction_Click(object sender, EventArgs e)
         {
             startProductAuctionHandler(getProductIDFromDescription(this.productsList.SelectedItems[0].Text));
+            disableIfNothingIsSelected();
         }
 
         private void StopProductAuction_Click(object sender, EventArgs e)
         {
             stopProductAuctionHandler(getProductIDFromDescription(this.productsList.SelectedItems[0].Text));
+            disableIfNothingIsSelected();
         }
 
         private int getProductIDFromDescription(string productDesc)
@@ -127,12 +131,17 @@ namespace BidderServer
             e.Cancel = true; // prevents form disposure
         }
 
-        private void ManageProductsForm_VisibleChanged(object sender, EventArgs e)
+        private void disableIfNothingIsSelected()
         {
             this.removeProductButton.Enabled = false;
             this.modifyProductButton.Enabled = false;
             this.startProductAuction.Enabled = false;
             this.stopProductAuction.Enabled = false;
+        }
+
+        private void ManageProductsForm_VisibleChanged(object sender, EventArgs e)
+        {
+            disableIfNothingIsSelected();
         }
 
         private void ProductsList_SelectedIndexChanged(object sender, EventArgs e)
