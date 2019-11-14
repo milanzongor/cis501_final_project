@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BidderClient.Shared;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,20 +13,21 @@ namespace BidderServer.MVC.Views.DialogForms
 {
     public partial class ProductDialogWindow : Form
     {
-        private int productID;
+        private Product product;
         private DialogOKButtonHandler dialogOKButtonHandler;
 
         public ProductDialogWindow(
             string formHeader,
-            int productID,
+            Product product,
             DialogOKButtonHandler dialogOKButtonHandler)
         {
             InitializeComponent();
             this.Text = formHeader;
-            this.productID = productID;
-            if (productID != -1)
+            this.product = product;
+            if (product != null)
             {
-                this.userInput1.Text = "New name for product with id = " + productID;
+                this.userInput1.Text = product.item.name;
+                this.userInput2.Text = product.item.startingBidPrice.ToString();
             } else
             {
                 this.userInput1.Text = "";
@@ -45,7 +47,7 @@ namespace BidderServer.MVC.Views.DialogForms
                 userInput2 = 10;
             }
             
-            dialogOKButtonHandler(productID, userInput1.Text, userInput2); 
+            dialogOKButtonHandler(product.productID, userInput1.Text, userInput2); 
             this.Close();
         }
     }

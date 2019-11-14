@@ -53,7 +53,7 @@ namespace BidderServer
         {
             ProductDialogWindow productDialogWindow = new ProductDialogWindow(
                 "Add Product Form",
-                -1,
+                null,
                 this.handleDialogOKButtonWhenAddingProduct);
 
             productDialogWindow.ShowDialog();
@@ -78,10 +78,11 @@ namespace BidderServer
         private void ModifyProductButton_Click(object sender, EventArgs e)
         {
             int productIDToModify = getProductIDFromDescription(this.productsList.SelectedItems[0].Text);
+            Product productToModify = this.itsModel.productsInventory[productIDToModify];
 
             ProductDialogWindow productDialogWindow = new ProductDialogWindow(
                 "Modify Product Form",
-                productIDToModify,
+                productToModify,
             this.handleDialogOKButtonWhenModifyingProduct);
 
             productDialogWindow.ShowDialog();
