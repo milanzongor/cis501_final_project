@@ -55,14 +55,16 @@ namespace BidderServer
                 "Add Product Form", 
                 "Enter new product name:",
                 "",
+                "Enter it's starting price:",
+                "10",
                 this.handleDialogOKButtonWhenAddingProduct);
 
             productDialogWindow.ShowDialog();
         }
 
-        private void handleDialogOKButtonWhenAddingProduct(string userInput)
+        private void handleDialogOKButtonWhenAddingProduct(string productName, double productStartingPrice)
         {
-            addProductHandler(userInput);
+            addProductHandler(productName, productStartingPrice);
         }
 
         private void RemoveProductButton_Click(object sender, EventArgs e)
@@ -70,7 +72,7 @@ namespace BidderServer
             removeProductHandler(getProductIDFromDescription(this.productsList.SelectedItems[0].Text));
         }
 
-        private void handleDialogOKButtonWhenModifyingProduct(string userInput)
+        private void handleDialogOKButtonWhenModifyingProduct(string productName, double productStartingPrice)
         {
 
         }
@@ -78,9 +80,11 @@ namespace BidderServer
         private void ModifyProductButton_Click(object sender, EventArgs e)
         {
             ProductDialogWindow productDialogWindow = new ProductDialogWindow(
-                "Add Product Form",
-                "Enter new product name:",
+                "Modify Product Form",
+                "Modify product name:",
                 "TODO",
+                "Modify starting product price:",
+                "10 TODO",
             this.handleDialogOKButtonWhenModifyingProduct);
 
             productDialogWindow.ShowDialog();
@@ -113,7 +117,7 @@ namespace BidderServer
                 foreach (var keyValuePair in this.itsModel.productsInventory)
                 {
                     Product product = keyValuePair.Value;
-                    this.productsList.Items.Add(product.productID + ") " + product.item.name + " - " + product.productStatus);
+                    this.productsList.Items.Add(product.productID + ") " + product.item.name + " - [" + product.item.startingBidPrice + "] - " + product.productStatus);
                 }
             } else
             {

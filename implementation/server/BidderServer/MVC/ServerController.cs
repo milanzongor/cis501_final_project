@@ -90,12 +90,12 @@ namespace BidderServer.MVC
             return false;
         }
 
-        private void handleAddProduct(string productName)
+        private void handleAddProduct(string productName, double productStartingPrice)
         {
             if (!isDuplicateInDB(productName))
             { 
                 int highestProductID = getHighestID();
-                Item newItem = new Item(productName, 1.0);
+                Item newItem = new Item(productName, productStartingPrice);
                 Product newProduct = new Product(highestProductID + 1, newItem, ProductStatus.DISABLED);
 
                 this.itsModel.productsInventory.Add(highestProductID + 1, newProduct);
@@ -107,7 +107,7 @@ namespace BidderServer.MVC
             this.itsModel.productsInventory.Remove(productID);
             notifyObservers();
         }
-        private void handleModifyProduct(int productID, string newProductName)
+        private void handleModifyProduct(int productID, string newProductName, double newProductStartingPrice)
         {
 
         }
