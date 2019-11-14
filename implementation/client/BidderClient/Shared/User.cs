@@ -16,5 +16,11 @@ namespace BidderClient.Shared
             this.userID = userID;
             this.credentials = credentials;
         }
+
+        public override bool Equals(object obj)
+        {
+            User other = (User) obj;
+            return this.credentials.userName.Equals(other.credentials.userName);
+        }
     }
 }
