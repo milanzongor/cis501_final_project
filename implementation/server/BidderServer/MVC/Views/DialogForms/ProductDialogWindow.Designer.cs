@@ -40,9 +40,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(86, 73);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(93, 32);
+            this.label1.Size = new System.Drawing.Size(330, 32);
             this.label1.TabIndex = 0;
-            this.label1.Text = "label1";
+            this.label1.Text = "Enter new product name:";
             // 
             // userInput1
             // 
@@ -66,9 +66,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(86, 176);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(93, 32);
+            this.label2.Size = new System.Drawing.Size(302, 32);
             this.label2.TabIndex = 3;
-            this.label2.Text = "label2";
+            this.label2.Text = "Enter it\'s starting price:";
             // 
             // userInput2
             // 
@@ -76,6 +76,7 @@
             this.userInput2.Name = "userInput2";
             this.userInput2.Size = new System.Drawing.Size(637, 38);
             this.userInput2.TabIndex = 4;
+            this.userInput2.Text = "10";
             // 
             // ProductDialogWindow
             // 

@@ -33,7 +33,7 @@ namespace BidderServer.MVC
             this.manageProductsHandler = this.handleManageProductsButton;
             this.addProductHandler = this.handleAddProduct;
             this.removeProductHandler = this.handleRemoveProduct;
-            this.modifyProductHandler = this.modifyProductHandler;
+            this.modifyProductHandler = this.handleModifyProduct;
             this.startProductAuctionHandler = this.handleStartProductAuction;
             this.stopProductAuctionHandler = this.handleStopProductAuction;
             this.productsFormClosedHandler = this.handleProductFormClosed;
@@ -109,7 +109,13 @@ namespace BidderServer.MVC
         }
         private void handleModifyProduct(int productID, string newProductName, double newProductStartingPrice)
         {
-
+            if (!isDuplicateInDB(newProductName))
+            {
+                Product productToModify = this.itsModel.productsInventory[productID];
+                productToModify.item.name = newProductName;
+                productToModify.item.startingBidPrice = newProductStartingPrice;
+                notifyObservers();
+            }
         }
         private void handleStartProductAuction(int productID)
         {

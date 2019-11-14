@@ -12,22 +12,25 @@ namespace BidderServer.MVC.Views.DialogForms
 {
     public partial class ProductDialogWindow : Form
     {
+        private int productID;
         private DialogOKButtonHandler dialogOKButtonHandler;
 
         public ProductDialogWindow(
-            string formHeader, 
-            string label1Text, 
-            string userInput1Text,
-            string label2Text,
-            string userInput2Text,
+            string formHeader,
+            int productID,
             DialogOKButtonHandler dialogOKButtonHandler)
         {
             InitializeComponent();
             this.Text = formHeader;
-            this.label1.Text = label1Text;
-            this.userInput1.Text = userInput1Text;
-            this.label2.Text = label2Text;
-            this.userInput2.Text = userInput2Text;
+            this.productID = productID;
+            if (productID != -1)
+            {
+                this.userInput1.Text = "New name for product with id = " + productID;
+            } else
+            {
+                this.userInput1.Text = "";
+            }
+            
             this.dialogOKButtonHandler = dialogOKButtonHandler;
         }
 
@@ -42,7 +45,7 @@ namespace BidderServer.MVC.Views.DialogForms
                 userInput2 = 10;
             }
             
-            dialogOKButtonHandler(this.userInput1.Text, userInput2); 
+            dialogOKButtonHandler(productID, userInput1.Text, userInput2); 
             this.Close();
         }
     }

@@ -52,17 +52,14 @@ namespace BidderServer
         private void AddProductButton_Click(object sender, EventArgs e)
         {
             ProductDialogWindow productDialogWindow = new ProductDialogWindow(
-                "Add Product Form", 
-                "Enter new product name:",
-                "",
-                "Enter it's starting price:",
-                "10",
+                "Add Product Form",
+                -1,
                 this.handleDialogOKButtonWhenAddingProduct);
 
             productDialogWindow.ShowDialog();
         }
 
-        private void handleDialogOKButtonWhenAddingProduct(string productName, double productStartingPrice)
+        private void handleDialogOKButtonWhenAddingProduct(int productID, string productName, double productStartingPrice)
         {
             addProductHandler(productName, productStartingPrice);
         }
@@ -72,19 +69,18 @@ namespace BidderServer
             removeProductHandler(getProductIDFromDescription(this.productsList.SelectedItems[0].Text));
         }
 
-        private void handleDialogOKButtonWhenModifyingProduct(string productName, double productStartingPrice)
+        private void handleDialogOKButtonWhenModifyingProduct(int productID, string productName, double productStartingPrice)
         {
-
+            modifyProductHandler(productID, productName, productStartingPrice);
         }
 
         private void ModifyProductButton_Click(object sender, EventArgs e)
         {
+            int productIDToModify = getProductIDFromDescription(this.productsList.SelectedItems[0].Text);
+
             ProductDialogWindow productDialogWindow = new ProductDialogWindow(
                 "Modify Product Form",
-                "Modify product name:",
-                "TODO",
-                "Modify starting product price:",
-                "10 TODO",
+                productIDToModify,
             this.handleDialogOKButtonWhenModifyingProduct);
 
             productDialogWindow.ShowDialog();

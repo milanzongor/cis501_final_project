@@ -9,7 +9,7 @@ namespace BidderClient.Shared
     public class Item
     {
         public string name { get; set; }
-        public double startingBidPrice { get; }
+        public double startingBidPrice { get; set; }
 
         public Item(string name, double startingBidPrice)
         {
