@@ -16,11 +16,13 @@ namespace BidderClient
         private ClientModel itsModel;
         private ClientState itsState;
         private PlaceBidHandler placeBidHandler;
+        private ProductListViewHandler handleProductListClick;
         public ClientObserver updateObserver { get; }
-        public PlaceBidForm(ClientModel model, PlaceBidHandler placeBidHandler)
+        public PlaceBidForm(ClientModel model, PlaceBidHandler placeBidHandler, ProductListViewHandler productListViewHandler)
         {
             this.itsModel = model;
             this.itsState = ClientState.UNAUTENTIZED;
+            this.handleProductListClick = productListViewHandler;
             this.placeBidHandler = placeBidHandler;
             this.updateObserver = this.update;
             this.Hide();
@@ -31,7 +33,17 @@ namespace BidderClient
 
         private void placeBidButton_Click(object sender, EventArgs e)
         {
-
+            int productID = getProductIDFromDescription(this.productListView.SelectedItems[0].Text);
+            double price = -1.0;
+            if (double.TryParse(biddingInput.Text, out price))
+            {
+                placeBidHandler(productID, price);
+            }
+            else
+            {
+                MessageBox.Show("Invalid bidding value (cannot be converted to double).");
+            }
+            
         }
 
         private void update(ClientState newState)
@@ -45,43 +57,45 @@ namespace BidderClient
                     this.productListView.Items.Clear();
                     foreach (var keyValuePair in this.itsModel.productsInventory)
                     {
-                        Product product = keyValuePair.Value;
-                        this.productListView.Items.Add(product.ClientToString());
+                        this.productListView.Items.Add(keyValuePair.Value.ClientToString());
                     }
                     this.Show();
                     break;
 
                 case ClientState.PRODUCT_SELECTED:
-                    enableIfAnythingSelected(); // NOTE!!! I am not sure what should be here and what in the productListViewClick
+                    enableIfAnythingSelected();
+                    
+                    int productID = getProductIDFromDescription(this.productListView.SelectedItems[0].Text);
+                    Product product = this.itsModel.productsInventory[productID];
+
+                    this.selectedProductNameLabel.Text = product.item.name;
+                    this.expirationDateLabel.Text = "1d, 4hrs, 25min left";
+                    this.bidNumberLabel.Text = "( " + product.numberOfBids.ToString() + " bids )";
+                    this.minimalBidValueLabel.Text = "Minimum bid $ " + product.currentHighestBid.value.ToString();
+                    if (product.productStatus == ProductStatus.ACTIVE)
+                    {
+                        this.statusColorField.BackColor = System.Drawing.SystemColors.HotTrack;
+                    }
+                    else
+                    {
+                        this.statusColorField.BackColor = System.Drawing.SystemColors.ControlDark;
+                    }
                     break;
 
                 case ClientState.BID_PLACED_OK:
+                    MessageBox.Show("Your bid was succesfully added.");
                     break;
 
                 case ClientState.BID_REJECTED:
+                    MessageBox.Show("Bid rejected - your bid must be higher that minimal bid value.");
                     break;
             }
         }
 
         private void productListView_click(object sender, EventArgs e)
         {
-            this.update(ClientState.PRODUCT_SELECTED);
-
             int productID = getProductIDFromDescription(this.productListView.SelectedItems[0].Text);
-            Product product = this.itsModel.productsInventory[productID];
-            
-            this.selectedProductNameLabel.Text = product.item.name;
-            this.expirationDateLabel.Text = "1d, 4hrs, 25min left";
-            this.bidNumberLabel.Text = "( " + product.numberOfBids.ToString() + " bids )";
-            this.minimalBidValueLabel.Text = "Minimum bid $ " + product.currentHighestBid.value.ToString();
-            if(product.productStatus == ProductStatus.ACTIVE)
-            {
-                this.statusColorField.BackColor = System.Drawing.SystemColors.HotTrack;
-            }
-            else
-            {
-                this.statusColorField.BackColor = System.Drawing.SystemColors.ControlDark;
-            }
+            handleProductListClick(productID);
         }
 
         private int getProductIDFromDescription(string productDesc)

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BidderClient.Shared;
 
 namespace BidderClient
 {
@@ -13,6 +14,7 @@ namespace BidderClient
         private List<ClientObserver> registry;
         public LoginHandler loginHandler { get; }
         public PlaceBidHandler placeBidHandler { get; }
+        public ProductListViewHandler productListViewHandler { get; }
 
         public ClientController(ClientModel model)
         {
@@ -20,6 +22,7 @@ namespace BidderClient
             this.itsState = ClientState.UNAUTENTIZED;
             this.loginHandler = new LoginHandler(this.tryToAutentize);
             this.placeBidHandler = new PlaceBidHandler(this.bidProduct);
+            this.productListViewHandler = new ProductListViewHandler(this.showSelectedProduct);
             this.registry = new List<ClientObserver>();
         }
 
@@ -65,7 +68,22 @@ namespace BidderClient
 
         private void bidProduct(int productID, double price)
         {
+            Product product = this.itsModel.productsInventory[productID];
+            if( price > product.currentHighestBid.value)
+            {
+                setState(ClientState.BID_PLACED_OK);
+                setState(ClientState.PRODUCT_SELECTED);
+            }
+            else
+            {
+                setState(ClientState.BID_REJECTED);
+                setState(ClientState.PRODUCT_SELECTED);
+            }
+        }
 
+        private void showSelectedProduct(int productID)
+        {
+            setState(ClientState.PRODUCT_SELECTED);
         }
 
         private void updateProductList(List<Shared.Product> productsInventory)

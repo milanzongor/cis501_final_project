@@ -40,7 +40,7 @@ namespace BidderClient
             controller.registerObserver(loginForm.updateObserver);
 
             // create place bid form
-            PlaceBidForm placeBidForm = new PlaceBidForm(model, controller.placeBidHandler);
+            PlaceBidForm placeBidForm = new PlaceBidForm(model, controller.placeBidHandler, controller.productListViewHandler);
             controller.registerObserver(placeBidForm.updateObserver);
 
             controller.notifyObservers(); // force form to render initial state
