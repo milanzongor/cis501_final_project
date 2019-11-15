@@ -52,6 +52,7 @@ namespace BidderClient
                     break;
 
                 case ClientState.PRODUCT_SELECTED:
+                    enableIfAnythingSelected(); // NOTE!!! I am not sure what should be here and what in the productListViewClick
                     break;
 
                 case ClientState.BID_PLACED_OK:
@@ -64,7 +65,7 @@ namespace BidderClient
 
         private void productListView_click(object sender, EventArgs e)
         {
-            enableIfAnythingSelected();
+            this.update(ClientState.PRODUCT_SELECTED);
 
             int productID = getProductIDFromDescription(this.productListView.SelectedItems[0].Text);
             Product product = this.itsModel.productsInventory[productID];
