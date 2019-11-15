@@ -38,7 +38,7 @@
             // userNameLabel
             // 
             this.userNameLabel.AutoSize = true;
-            this.userNameLabel.Location = new System.Drawing.Point(146, 148);
+            this.userNameLabel.Location = new System.Drawing.Point(104, 113);
             this.userNameLabel.Name = "userNameLabel";
             this.userNameLabel.Size = new System.Drawing.Size(79, 17);
             this.userNameLabel.TabIndex = 0;
@@ -48,7 +48,7 @@
             // userPasswordLabel
             // 
             this.userPasswordLabel.AutoSize = true;
-            this.userPasswordLabel.Location = new System.Drawing.Point(149, 233);
+            this.userPasswordLabel.Location = new System.Drawing.Point(107, 198);
             this.userPasswordLabel.Name = "userPasswordLabel";
             this.userPasswordLabel.Size = new System.Drawing.Size(69, 17);
             this.userPasswordLabel.TabIndex = 1;
@@ -57,9 +57,9 @@
             // 
             // loginButton
             // 
-            this.loginButton.Location = new System.Drawing.Point(333, 315);
+            this.loginButton.Location = new System.Drawing.Point(164, 280);
             this.loginButton.Name = "loginButton";
-            this.loginButton.Size = new System.Drawing.Size(75, 23);
+            this.loginButton.Size = new System.Drawing.Size(163, 75);
             this.loginButton.TabIndex = 2;
             this.loginButton.Text = "Login";
             this.loginButton.UseVisualStyleBackColor = true;
@@ -67,14 +67,14 @@
             // 
             // userNameInput
             // 
-            this.userNameInput.Location = new System.Drawing.Point(321, 145);
+            this.userNameInput.Location = new System.Drawing.Point(279, 110);
             this.userNameInput.Name = "userNameInput";
             this.userNameInput.Size = new System.Drawing.Size(100, 22);
             this.userNameInput.TabIndex = 3;
             // 
             // userPasswordInput
             // 
-            this.userPasswordInput.Location = new System.Drawing.Point(321, 233);
+            this.userPasswordInput.Location = new System.Drawing.Point(279, 198);
             this.userPasswordInput.Name = "userPasswordInput";
             this.userPasswordInput.Size = new System.Drawing.Size(100, 22);
             this.userPasswordInput.TabIndex = 4;
@@ -83,7 +83,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(514, 423);
             this.Controls.Add(this.userPasswordInput);
             this.Controls.Add(this.userNameInput);
             this.Controls.Add(this.loginButton);

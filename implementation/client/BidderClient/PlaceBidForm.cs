@@ -41,6 +41,7 @@ namespace BidderClient
             switch (this.itsState)
             {
                 case ClientState.ALL_PRODUCTS_OFFERED:
+                    disableIfNothingIsSelected();
                     this.productListView.Items.Clear();
                     foreach (var keyValuePair in this.itsModel.productsInventory)
                     {
@@ -63,12 +64,15 @@ namespace BidderClient
 
         private void productListView_click(object sender, EventArgs e)
         {
+            enableIfAnythingSelected();
+
             int productID = getProductIDFromDescription(this.productListView.SelectedItems[0].Text);
             Product product = this.itsModel.productsInventory[productID];
-            this.selectedProductName.Text = product.item.name;
+            
+            this.selectedProductNameLabel.Text = product.item.name;
             this.expirationDateLabel.Text = "1d, 4hrs, 25min left";
-            this.bidNumberValue.Text = "( " + product.numberOfBids.ToString() + " bids )";
-            this.minimalBidValueLabel.Text = product.currentHighestBid.value.ToString();
+            this.bidNumberLabel.Text = "( " + product.numberOfBids.ToString() + " bids )";
+            this.minimalBidValueLabel.Text = "Minimum bid $ " + product.currentHighestBid.value.ToString();
             if(product.productStatus == ProductStatus.ACTIVE)
             {
                 this.statusColorField.BackColor = System.Drawing.SystemColors.HotTrack;
@@ -82,6 +86,37 @@ namespace BidderClient
         private int getProductIDFromDescription(string productDesc)
         {
             return Int32.Parse(productDesc.Substring(0, productDesc.IndexOf(')')));
+        }
+
+        private void disableIfNothingIsSelected()
+        {
+            this.selectedProductNameLabel.Visible = false;
+            this.expirationDateLabel.Visible = false;
+            this.statusLabel.Visible = false;
+            this.statusColorField.Visible = false;
+            this.biddingInput.Visible = false;
+            this.bidNumberLabel.Visible = false;
+            this.minimalBidValueLabel.Visible = false;
+
+            this.placeBidButton.Enabled = false;
+        }
+
+        private void enableIfAnythingSelected()
+        {
+            this.selectedProductNameLabel.Visible = true;
+            this.expirationDateLabel.Visible = true;
+            this.statusLabel.Visible = true;
+            this.statusColorField.Visible = true;
+            this.biddingInput.Visible = true;
+            this.bidNumberLabel.Visible = true;
+            this.minimalBidValueLabel.Visible = true;
+
+            this.placeBidButton.Enabled = true;
+        }
+
+        private void PlaceBidForm_Closing(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }
