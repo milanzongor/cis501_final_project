@@ -18,7 +18,7 @@ namespace BidderClient
         {
             this.itsModel = model;
             this.itsState = ClientState.UNAUTENTIZED;
-            loginHandler = new LoginHandler(this.tryToAutentize);
+            this.loginHandler = new LoginHandler(this.tryToAutentize);
             this.placeBidHandler = new PlaceBidHandler(this.bidProduct);
             this.registry = new List<ClientObserver>();
         }
@@ -39,13 +39,23 @@ namespace BidderClient
         /* based on state transitions of Controller State Diagram */
         private void setState(ClientState state)
         {
-            itsState = state;
+            this.itsState = state;
             notifyObservers();
         }
 
-        private bool tryToAutentize(string name, string password)
+        private void tryToAutentize(string name, string password)
         {
-            return true;
+            bool returnedValue = true; // will be changed to return value of proxy
+            if (returnedValue)
+            {
+                setState(ClientState.AUTENTIZED_SUCCESSFULLY);
+                setState(ClientState.ALL_PRODUCTS_OFFERED);
+            }
+            else
+            {
+                setState(ClientState.AUTENTIZATION_FAILED);
+                setState(ClientState.UNAUTENTIZED);
+            }
         }
 
         private void validateBid(int productID, double price)
@@ -53,9 +63,9 @@ namespace BidderClient
             
         }
 
-        private bool bidProduct(int productID, double price)
+        private void bidProduct(int productID, double price)
         {
-            return true;
+
         }
 
         private void updateProductList(List<Shared.Product> productsInventory)

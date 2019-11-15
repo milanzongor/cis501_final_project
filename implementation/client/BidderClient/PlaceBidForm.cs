@@ -41,8 +41,7 @@ namespace BidderClient
             switch (this.itsState)
             {
                 case ClientState.ALL_PRODUCTS_OFFERED:
-                    this.Show();
-
+                    MessageBox.Show("jojo");
                     this.productListView.Items.Clear();
                     foreach (var keyValuePair in this.itsModel.productInventory)
                     {

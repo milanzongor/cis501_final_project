@@ -30,9 +30,13 @@ namespace BidderClient
 
             switch (this.itsState)
             {
+                case ClientState.UNAUTENTIZED:
+                    userNameInput.Clear();
+                    userPasswordInput.Clear();
+                    break;
+
                 case ClientState.AUTENTIZATION_FAILED:
                     MessageBox.Show("Login failed.");
-                    this.itsState = ClientState.UNAUTENTIZED;
                     break;
 
                 case ClientState.AUTENTIZED_SUCCESSFULLY:
