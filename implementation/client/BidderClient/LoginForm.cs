@@ -14,16 +14,19 @@ namespace BidderClient
     {
         private ClientState itsState;
         private LoginHandler loginHandler;
-        public LoginForm(LoginHandler loginHandler, ClientState itsState)
+        public ClientObserver updateObserver { get; }
+
+        public LoginForm(LoginHandler loginHandler)
         {
-            this.itsState = itsState;
+            this.itsState = ClientState.UNAUTENTIZED;
             this.loginHandler = loginHandler;
+            this.updateObserver = this.update;
             InitializeComponent();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-
+            loginHandler(userNameInput.Text, userPasswordInput.Text);
         }
 
         private void update(ClientState newState)
@@ -38,7 +41,7 @@ namespace BidderClient
                     break;
 
                 case ClientState.AUTENTIZED_SUCCESSFULLY:
-
+                    this.Hide();
                     break;
             }
         }

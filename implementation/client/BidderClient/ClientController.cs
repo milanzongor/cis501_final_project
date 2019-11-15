@@ -16,11 +16,11 @@ namespace BidderClient
 
         public ClientController(ClientModel model)
         {
-            itsModel = model;
-            itsState = ClientState.UNAUTENTIZED;
-            loginHandler = new LoginHandler(this.loginHandler);
-            placeBidHandler = new PlaceBidHandler(this.placeBidHandler);
-            registry = new List<ClientObserver>();
+            this.itsModel = model;
+            this.itsState = ClientState.UNAUTENTIZED;
+            this.loginHandler = this.loginHandler; // here will be a mistake
+            this.placeBidHandler = this.placeBidHandler;
+            this.registry = new List<ClientObserver>();
         }
 
         public void registerObserver(ClientObserver observer)

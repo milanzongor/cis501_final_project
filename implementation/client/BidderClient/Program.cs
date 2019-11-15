@@ -20,13 +20,13 @@ namespace BidderClient
             ClientModel model = new ClientModel();
             ClientController controller = new ClientController(model);
         
-            LoginForm view = new LoginForm(
-                controller.loginHangler,
-                controller.loginHangler,
-                controller.timerTickHandler); // delegates provide compile protecting agains swapping args: cannot convert from 'AlarmClock.Button2ClickHandler' to 'AlarmClock.Button1ClickHandler'
-            controller.registerObserver(view.updateDelegate);
+            // create login form
+            LoginForm loginForm = new LoginForm(controller.loginHandler);
+            controller.registerObserver(loginForm.updateObserver);
+            
             controller.notifyObservers(); // force form to render initial state
-            Application.Run(view);
+            
+            Application.Run(loginForm);
         }
     }
 }
