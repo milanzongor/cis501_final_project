@@ -9,12 +9,13 @@ namespace BidderClient
 {
     public class ClientModel
     {
-        public List<Product> productInventory { get; set; }
+        public Dictionary<int, Product> productsInventory { get; set; }
         public User loggedUser { get; set; }
+
         public ClientModel()
         {
-            this.productInventory = new List<Product>();
-            this.loggedUser = new User(0, null); // NOTE!!!! I am not sure if this is how it should be
+            this.productsInventory = new Dictionary<int, Product>();
+            this.loggedUser = new User(0, null); // !!! NOTE change this
         }
     }
 }

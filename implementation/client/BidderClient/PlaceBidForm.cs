@@ -41,12 +41,11 @@ namespace BidderClient
             switch (this.itsState)
             {
                 case ClientState.ALL_PRODUCTS_OFFERED:
-                    MessageBox.Show("jojo");
                     this.productListView.Items.Clear();
-                    foreach (var keyValuePair in this.itsModel.productInventory)
+                    foreach (var keyValuePair in this.itsModel.productsInventory)
                     {
-                        Product product = keyValuePair;
-                        this.productListView.Items.Add(product.ToString());
+                        Product product = keyValuePair.Value;
+                        this.productListView.Items.Add(product.ClientToString());
                     }
                     this.Show();
                     break;
@@ -60,6 +59,29 @@ namespace BidderClient
                 case ClientState.BID_REJECTED:
                     break;
             }
+        }
+
+        private void productListView_click(object sender, EventArgs e)
+        {
+            int productID = getProductIDFromDescription(this.productListView.SelectedItems[0].Text);
+            Product product = this.itsModel.productsInventory[productID];
+            this.selectedProductName.Text = product.item.name;
+            this.expirationDateLabel.Text = "1d, 4hrs, 25min left";
+            this.bidNumberValue.Text = "( " + product.numberOfBids.ToString() + " bids )";
+            this.minimalBidValueLabel.Text = product.currentHighestBid.value.ToString();
+            if(product.productStatus == ProductStatus.ACTIVE)
+            {
+                this.statusColorField.BackColor = System.Drawing.SystemColors.HotTrack;
+            }
+            else
+            {
+                this.statusColorField.BackColor = System.Drawing.SystemColors.ControlDark;
+            }
+        }
+
+        private int getProductIDFromDescription(string productDesc)
+        {
+            return Int32.Parse(productDesc.Substring(0, productDesc.IndexOf(')')));
         }
     }
 }

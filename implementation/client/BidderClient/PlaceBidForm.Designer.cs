@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem7 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem8 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem("");
             this.selectedProductName = new System.Windows.Forms.Label();
             this.placeBidButton = new System.Windows.Forms.Button();
             this.minimalBidLabel = new System.Windows.Forms.Label();
@@ -148,15 +148,18 @@
             this.columnHeader4});
             this.productListView.HideSelection = false;
             this.productListView.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem5,
-            listViewItem6,
-            listViewItem7,
-            listViewItem8});
+            listViewItem1,
+            listViewItem2,
+            listViewItem3,
+            listViewItem4});
             this.productListView.Location = new System.Drawing.Point(531, 97);
+            this.productListView.MultiSelect = false;
             this.productListView.Name = "productListView";
             this.productListView.Size = new System.Drawing.Size(164, 200);
             this.productListView.TabIndex = 10;
             this.productListView.UseCompatibleStateImageBehavior = false;
+            this.productListView.View = System.Windows.Forms.View.List;
+            this.productListView.Click += new System.EventHandler(this.productListView_click);
             // 
             // PlaceBidForm
             // 

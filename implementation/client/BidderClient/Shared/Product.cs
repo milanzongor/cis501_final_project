@@ -37,5 +37,10 @@ namespace BidderClient.Shared
                 return part1;
             }
         }
+
+        public string ClientToString()
+        {
+            return this.productID + ") " + this.item.name;
+        }
     }
 }
