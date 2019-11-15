@@ -28,15 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem7 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem8 = new System.Windows.Forms.ListViewItem("");
             this.selectedProductName = new System.Windows.Forms.Label();
             this.placeBidButton = new System.Windows.Forms.Button();
             this.minimalBidLabel = new System.Windows.Forms.Label();
             this.minimalBidValueLabel = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.biddingInput = new System.Windows.Forms.TextBox();
             this.bidNumberValue = new System.Windows.Forms.Label();
             this.statusLabel = new System.Windows.Forms.Label();
             this.statusColorField = new System.Windows.Forms.TextBox();
@@ -66,6 +66,7 @@
             this.placeBidButton.TabIndex = 1;
             this.placeBidButton.Text = "Place Bid";
             this.placeBidButton.UseVisualStyleBackColor = true;
+            this.placeBidButton.Click += new System.EventHandler(this.placeBidButton_Click);
             // 
             // minimalBidLabel
             // 
@@ -84,14 +85,13 @@
             this.minimalBidValueLabel.Size = new System.Drawing.Size(22, 17);
             this.minimalBidValueLabel.TabIndex = 3;
             this.minimalBidValueLabel.Text = "txt";
-            this.minimalBidValueLabel.Click += new System.EventHandler(this.label1_Click);
             // 
-            // textBox1
+            // biddingInput
             // 
-            this.textBox1.Location = new System.Drawing.Point(59, 240);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 22);
-            this.textBox1.TabIndex = 4;
+            this.biddingInput.Location = new System.Drawing.Point(59, 240);
+            this.biddingInput.Name = "biddingInput";
+            this.biddingInput.Size = new System.Drawing.Size(100, 22);
+            this.biddingInput.TabIndex = 4;
             // 
             // bidNumberValue
             // 
@@ -138,7 +138,6 @@
             this.productsLabel.Size = new System.Drawing.Size(64, 17);
             this.productsLabel.TabIndex = 9;
             this.productsLabel.Text = "Products";
-            this.productsLabel.Click += new System.EventHandler(this.label1_Click_1);
             // 
             // productListView
             // 
@@ -149,10 +148,10 @@
             this.columnHeader4});
             this.productListView.HideSelection = false;
             this.productListView.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1,
-            listViewItem2,
-            listViewItem3,
-            listViewItem4});
+            listViewItem5,
+            listViewItem6,
+            listViewItem7,
+            listViewItem8});
             this.productListView.Location = new System.Drawing.Point(531, 97);
             this.productListView.Name = "productListView";
             this.productListView.Size = new System.Drawing.Size(164, 200);
@@ -170,7 +169,7 @@
             this.Controls.Add(this.statusColorField);
             this.Controls.Add(this.statusLabel);
             this.Controls.Add(this.bidNumberValue);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.biddingInput);
             this.Controls.Add(this.minimalBidValueLabel);
             this.Controls.Add(this.minimalBidLabel);
             this.Controls.Add(this.placeBidButton);
@@ -188,7 +187,7 @@
         private System.Windows.Forms.Button placeBidButton;
         private System.Windows.Forms.Label minimalBidLabel;
         private System.Windows.Forms.Label minimalBidValueLabel;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox biddingInput;
         private System.Windows.Forms.Label bidNumberValue;
         private System.Windows.Forms.Label statusLabel;
         private System.Windows.Forms.TextBox statusColorField;

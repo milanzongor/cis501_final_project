@@ -24,11 +24,6 @@ namespace BidderClient
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            loginHandler(userNameInput.Text, userPasswordInput.Text);
-        }
-
         private void update(ClientState newState)
         {
             this.itsState = newState;
@@ -44,6 +39,11 @@ namespace BidderClient
                     this.Hide();
                     break;
             }
+        }
+
+        private void loginButton_Click(object sender, EventArgs e)
+        {
+            loginHandler(userNameInput.Text, userPasswordInput.Text);
         }
     }
 }

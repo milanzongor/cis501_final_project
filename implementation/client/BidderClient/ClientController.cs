@@ -18,8 +18,8 @@ namespace BidderClient
         {
             this.itsModel = model;
             this.itsState = ClientState.UNAUTENTIZED;
-            this.loginHandler = this.loginHandler; // here will be a mistake
-            this.placeBidHandler = this.placeBidHandler;
+            loginHandler = new LoginHandler(this.tryToAutentize);
+            this.placeBidHandler = new PlaceBidHandler(this.bidProduct);
             this.registry = new List<ClientObserver>();
         }
 
