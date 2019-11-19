@@ -67,10 +67,12 @@
     <Compile Include="MVC\Views\ManageProductsForm.Designer.cs">
       <DependentUpon>ManageProductsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Shared\ServerAPI.cs" />
+    <Compile Include="Shared\Communication\BidProductWrapper.cs" />
+    <Compile Include="Shared\Communication\ServerAPI.cs" />
     <Compile Include="ServerDelegatesDeclaration.cs" />
     <Compile Include="ServerState.cs" />
     <Compile Include="Shared\Bid.cs" />
+    <Compile Include="Shared\Communication\UpdateProductsWrapper.cs" />
     <Compile Include="Shared\Credentials.cs" />
     <Compile Include="MVC\Views\ServerDashBoardForm.cs">
       <SubType>Form</SubType>
