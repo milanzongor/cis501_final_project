@@ -18,5 +18,10 @@ namespace BidderClient.Shared.Communication
             this.bidValue = bidValue;
             this.bidder = bidder;
         }
+
+        bool hasValidValues()
+        {
+            return productID != 0 && bidValue != 0 && bidder != null && bidder.userID != 0;
+        }
     }
 }

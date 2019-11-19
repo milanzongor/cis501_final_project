@@ -1,6 +1,8 @@
 ﻿using BidderClient.Shared;
+using BidderClient.Shared.Communication;
 using BidderServer.Config;
 using CsvHelper;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -199,20 +201,26 @@ namespace BidderServer.MVC
             return highestID;
         }
 
-        public bool autentizate(Credentials credentials)
+        public User autentizate(Credentials credentials)
         {
             int userID = getUserIDFromDB(credentials.userName);
 
             if (userID != -1)
             {
-                return this.itsModel.connectedUsers[userID].credentials.Equals(credentials);
+                if (this.itsModel.connectedUsers[userID].credentials.Equals(credentials))
+                {
+                    return this.itsModel.connectedUsers[userID];
+                } else
+                {
+                    return null;
+                }
             } else
             {
                 // new user, add him with entered password
                 userID = getHighestUserID();
                 User newUser = new User(userID, credentials);
                 this.itsModel.connectedUsers.Add(userID, newUser);
-                return true;
+                return newUser;
             }
         }
 
@@ -257,10 +265,28 @@ namespace BidderServer.MVC
 
         protected override void OnMessage(MessageEventArgs e)
         {
-            string message = e.Data;
-            Console.WriteLine("Client says: " + e.Data);
-            // Broadcast message to all clients
-            // Sessions.Broadcast(message);
+            // Console.WriteLine("Client says: " + e.Data);
+            Credentials credentials = JsonConvert.DeserializeObject<Credentials>(e.Data);
+            if (!credentials.userName.IsNullOrEmpty() && !credentials.userName.IsNullOrEmpty()) {
+                // authentization message came
+                User autentizedUser = autentizate(credentials);
+                Console.WriteLine(autentizedUser.credentials.userName);
+            } else
+            {
+                // bid product message must have come
+                BidProductParamsWrapper bidProductParams = JsonConvert.DeserializeObject<BidProductParamsWrapper>(e.Data);
+                if (bidProductParams.hasValidValues())
+                {
+                    bool wasSuccessful = bidProduct(
+                        bidProductParams.productID, bidProductParams.bidValue, bidProductParams.bidder
+                    );
+
+
+                } else
+                {
+                    throw new Exception("Unknown message came from the client");
+                }
+            }
         }
     }
 }

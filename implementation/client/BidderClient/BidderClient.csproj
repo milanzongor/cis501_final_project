@@ -84,7 +84,7 @@
     <Compile Include="Shared\Communication\ServerAPI.cs" />
     <Compile Include="Proxy\ServerProxy.cs" />
     <Compile Include="Shared\Bid.cs" />
-    <Compile Include="Shared\Communication\UpdateProductsWrapper.cs" />
+    <Compile Include="Shared\Communication\UpdateProductsParamWrapper.cs" />
     <Compile Include="Shared\Credentials.cs" />
     <Compile Include="Shared\Item.cs" />
     <Compile Include="Shared\Product.cs" />

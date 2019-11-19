@@ -31,16 +31,25 @@ namespace BidderClient.Proxy
             this.webSocketToRealServer.Close();
         }
 
-        public bool autentizate(Credentials credentials)
+        public User autentizate(Credentials credentials)
         {
             if (webSocketToRealServer.IsAlive)
             {
-                webSocketToRealServer.Send(JsonConvert.SerializeObject(credentials));
-                return true;
+                bool authentizationFinished = false;
+                while (!authentizationFinished)
+                {
+                    webSocketToRealServer.Send(JsonConvert.SerializeObject(credentials));
+                    // get response
+                    authentizationFinished = true;
+                }
+
+                // wait for response with User class!
+                //this.its
+                return null; // true
             }
             else
             {
-                return false;
+                return null; // false
             }
         }
 

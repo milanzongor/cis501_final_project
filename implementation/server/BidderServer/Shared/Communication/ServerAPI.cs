@@ -9,7 +9,7 @@ namespace BidderClient.Shared
 {
     public interface ServerAPI
     {
-        bool autentizate(Credentials credentials);
+        User autentizate(Credentials credentials);
         bool bidProduct(int productID, double bidValue, User bidder);
     }
 }

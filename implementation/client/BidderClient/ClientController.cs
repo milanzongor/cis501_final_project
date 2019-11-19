@@ -51,8 +51,9 @@ namespace BidderClient
 
         private void tryToAutentize(string name, string password)
         {
-            bool returnedValue = true; // will be changed to return value of proxy
-            if (returnedValue)
+            User autentizedUser = serverProxy.autentizate(new Credentials(name, password));
+            bool wasLoginSuccessful = autentizedUser != null;
+            if (wasLoginSuccessful)
             {
                 setState(ClientState.AUTENTIZED_SUCCESSFULLY);
                 setState(ClientState.ALL_PRODUCTS_OFFERED);

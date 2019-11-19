@@ -14,5 +14,10 @@ namespace BidderClient.Shared.Communication
         {
             this.productsInventory = productsInventory;
         }
+
+        public bool hasValidValues()
+        {
+            return productsInventory != null && productsInventory.Count() != 0;
+        }
     }
 }

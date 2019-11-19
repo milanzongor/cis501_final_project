@@ -39,6 +39,9 @@
     <Reference Include="Json.Net, Version=1.0.18.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\Json.Net.1.0.18\lib\netstandard2.0\Json.Net.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -70,12 +73,12 @@
     <Compile Include="MVC\Views\ManageProductsForm.Designer.cs">
       <DependentUpon>ManageProductsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Shared\Communication\BidProductWrapper.cs" />
+    <Compile Include="Shared\Communication\BidProductParamsWrapper.cs" />
     <Compile Include="Shared\Communication\ServerAPI.cs" />
     <Compile Include="ServerDelegatesDeclaration.cs" />
     <Compile Include="ServerState.cs" />
     <Compile Include="Shared\Bid.cs" />
-    <Compile Include="Shared\Communication\UpdateProductsWrapper.cs" />
+    <Compile Include="Shared\Communication\UpdateProductsParamWrapper.cs" />
     <Compile Include="Shared\Credentials.cs" />
     <Compile Include="MVC\Views\ServerDashBoardForm.cs">
       <SubType>Form</SubType>
