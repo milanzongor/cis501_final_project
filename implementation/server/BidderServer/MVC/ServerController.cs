@@ -7,11 +7,12 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-// using WebSocketSharp;
+using WebSocketSharp;
+using WebSocketSharp.Server;
 
 namespace BidderServer.MVC
 {
-    public class ServerController : ServerAPI
+    public class ServerController : WebSocketBehavior, ServerAPI
     {
         private ServerModel itsModel;
         private ServerState itsState;
@@ -242,6 +243,24 @@ namespace BidderServer.MVC
         void notifyAllClientsAboutProductChange(List<Product> updatedProductsInventory)
         {
 
+        }
+
+        /*protected override void OnOpen()
+        {
+            
+            foreach (string m in history)
+            {
+                Sessions.SendTo(this.ID, m);
+            }
+        }
+        */
+
+        protected override void OnMessage(MessageEventArgs e)
+        {
+            string message = e.Data;
+            Console.WriteLine("Client says: " + e.Data);
+            // Broadcast message to all clients
+            // Sessions.Broadcast(message);
         }
     }
 }

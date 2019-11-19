@@ -12,18 +12,15 @@ namespace BidderClient.Proxy
     {
         private WebSocket webSocketToRealServer;
         private Dictionary<int, Product> productsInventory;
-        private static string REAL_SERVER_URL = "ws://127.0.0.1:8888/bidder";
-
-        public delegate bool Message(string message);
-        public event Message MessageReceived;
+        private static string REAL_SERVER_URL = "ws://127.0.0.1:80/bidder";
 
         public ServerProxy()
         {
             this.productsInventory = new Dictionary<int, Product>();
 
             this.webSocketToRealServer = new WebSocket(REAL_SERVER_URL);
-            this.webSocketToRealServer.OnMessage += 
-                (sender, e) => { if (MessageReceived != null) MessageReceived(e.Data); }; // TODO
+            this.webSocketToRealServer.OnMessage += (sender, e) =>
+                Console.WriteLine("Server says: " + e.Data);
             this.webSocketToRealServer.Connect();
         }
 
@@ -36,7 +33,7 @@ namespace BidderClient.Proxy
         {
             if (webSocketToRealServer.IsAlive)
             {
-                webSocketToRealServer.Send(": ");
+                webSocketToRealServer.Send(credentials.ToString());
                 return true;
             }
             else
@@ -49,7 +46,7 @@ namespace BidderClient.Proxy
         {
             if (webSocketToRealServer.IsAlive)
             {
-                webSocketToRealServer.Send(": ");
+                webSocketToRealServer.Send(productID.ToString() + ';' + bidValue.ToString() + ';' + bidder.userID.ToString());
                 return true;
             }
             else

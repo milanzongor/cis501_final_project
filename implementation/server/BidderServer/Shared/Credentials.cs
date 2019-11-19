@@ -23,5 +23,10 @@ namespace BidderClient.Shared
             return this.userName.Equals(other.userName) &&
                 this.password.Equals(other.password);
         }
+
+        public override string ToString()
+        {
+            return this.userName + ';' + this.password;
+        }
     }
 }

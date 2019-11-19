@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WebSocketSharp.Server;
 
 namespace BidderServer
 {
@@ -39,7 +40,12 @@ namespace BidderServer
             controller.registerObserver(serverDashBoardForm.updateObserver);
             controller.registerObserver(manageProductsForm.updateObserver);
 
+            var wss = new WebSocketServer(80);
+            wss.AddWebSocketService<ServerController>("/bidder", () => controller);
+            wss.Start();
+
             Application.Run(serverDashBoardForm);
+            wss.Stop();
         }
     }
 }
