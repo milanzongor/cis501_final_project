@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BidderClient.Shared;
+using BidderClient.Shared.Communication;
+using Newtonsoft.Json;
 using WebSocketSharp;
 
 namespace BidderClient.Proxy
@@ -33,7 +35,7 @@ namespace BidderClient.Proxy
         {
             if (webSocketToRealServer.IsAlive)
             {
-                webSocketToRealServer.Send(credentials.ToString());
+                webSocketToRealServer.Send(JsonConvert.SerializeObject(credentials));
                 return true;
             }
             else
@@ -46,7 +48,9 @@ namespace BidderClient.Proxy
         {
             if (webSocketToRealServer.IsAlive)
             {
-                webSocketToRealServer.Send(productID.ToString() + ';' + bidValue.ToString() + ';' + bidder.userID.ToString());
+                webSocketToRealServer.Send(JsonConvert.SerializeObject(
+                    new BidProductParamsWrapper(productID, bidValue, bidder))
+                );
                 return true;
             }
             else

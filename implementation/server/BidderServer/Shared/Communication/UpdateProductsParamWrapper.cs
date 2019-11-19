@@ -6,8 +6,13 @@ using System.Threading.Tasks;
 
 namespace BidderClient.Shared.Communication
 {
-    class UpdateProductsWrapper
+    public class UpdateProductsParamWrapper
     {
         public List<Product> productsInventory { get; set; }
+
+        public UpdateProductsParamWrapper(List<Product> productsInventory)
+        {
+            this.productsInventory = productsInventory;
+        }
     }
 }
