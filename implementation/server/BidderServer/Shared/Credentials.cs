@@ -24,9 +24,12 @@ namespace BidderClient.Shared
                 this.password.Equals(other.password);
         }
 
-        public override string ToString()
+        public override int GetHashCode()
         {
-            return this.userName + ';' + this.password;
+            var hashCode = -514035047;
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(userName);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(password);
+            return hashCode;
         }
     }
 }

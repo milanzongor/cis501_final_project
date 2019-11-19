@@ -22,5 +22,13 @@ namespace BidderClient.Shared
             User other = (User) obj;
             return this.credentials.userName.Equals(other.credentials.userName);
         }
+
+        public override int GetHashCode()
+        {
+            var hashCode = -1676068120;
+            hashCode = hashCode * -1521134295 + userID.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<Credentials>.Default.GetHashCode(credentials);
+            return hashCode;
+        }
     }
 }
