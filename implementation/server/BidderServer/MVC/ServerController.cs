@@ -1,6 +1,5 @@
 ﻿using BidderClient.Shared;
 using BidderServer.Config;
-using BidderServer.Proxy;
 using CsvHelper;
 using System;
 using System.Collections.Generic;

@@ -64,8 +64,7 @@
     <Compile Include="MVC\Views\ManageProductsForm.Designer.cs">
       <DependentUpon>ManageProductsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Proxy\ServerAPI.cs" />
-    <Compile Include="Proxy\ServerProxy.cs" />
+    <Compile Include="Shared\ServerAPI.cs" />
     <Compile Include="ServerDelegatesDeclaration.cs" />
     <Compile Include="ServerState.cs" />
     <Compile Include="Shared\Bid.cs" />

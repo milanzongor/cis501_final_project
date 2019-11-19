@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BidderServer.Proxy
+namespace BidderClient.Shared
 {
     public interface ServerAPI
     {

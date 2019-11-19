@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BidderClient.Proxy;
 using BidderClient.Shared;
 
 namespace BidderClient
@@ -15,6 +16,7 @@ namespace BidderClient
         public LoginHandler loginHandler { get; }
         public PlaceBidHandler placeBidHandler { get; }
         public ProductListViewHandler productListViewHandler { get; }
+        private ServerProxy serverProxy;
 
         public ClientController(ClientModel model)
         {
@@ -24,6 +26,7 @@ namespace BidderClient
             this.placeBidHandler = new PlaceBidHandler(this.bidProduct);
             this.productListViewHandler = new ProductListViewHandler(this.showSelectedProduct);
             this.registry = new List<ClientObserver>();
+            this.serverProxy = new ServerProxy();
         }
 
         public void registerObserver(ClientObserver observer)
