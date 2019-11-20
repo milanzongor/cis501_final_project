@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using BidderClient.Shared;
 using BidderClient.Shared.Communication;
@@ -24,8 +25,7 @@ namespace BidderClient.Proxy
             this.productsInventory = new Dictionary<int, Product>();
 
             this.webSocketToRealServer = new WebSocket(REAL_SERVER_URL);
-            this.webSocketToRealServer.OnMessage += (sender, e) =>
-                Console.WriteLine("Server says: " + e.Data);
+            this.webSocketToRealServer.Log.Level = LogLevel.Debug;
             this.webSocketToRealServer.Connect();
         }
 
@@ -39,17 +39,17 @@ namespace BidderClient.Proxy
             if (webSocketToRealServer.IsAlive)
             {
                 webSocketToRealServer.Send(JsonConvert.SerializeObject(credentials));
-                while (didUserAutentizeWrapper == null) // while no response from server came
-                {
-                    // wait for response
-                }
-                if (didUserAutentizeWrapper.wasSuccessful)
-                {
-                    return didUserAutentizeWrapper.autentizedUser;
-                } else
-                {
+                //while (didUserAutentizeWrapper == null) // while no response from server came
+                //{
+                //    Thread.Sleep(25); // slow poll wait for response
+                //}
+                //if (didUserAutentizeWrapper.wasSuccessful)
+                //{
+                //    return didUserAutentizeWrapper.autentizedUser;
+                //} else
+                //{
                     return null;
-                }
+                //}
             }
             else
             {
@@ -67,7 +67,7 @@ namespace BidderClient.Proxy
                 );
                 while (wasBidPlacedWrapper == null)
                 {
-                    // wait for response
+                    Thread.Sleep(25); // slow poll wait for response
                 }
                 return wasBidPlacedWrapper.wasSuccessful;
             }
@@ -84,7 +84,7 @@ namespace BidderClient.Proxy
 
         protected override void OnMessage(MessageEventArgs e)
         {
-            // Console.WriteLine("Server says: " + e.Data);
+            Console.WriteLine("Server says: " + e.Data);
             UpdateProductsParamWrapper updateProductsParam = JsonConvert.DeserializeObject<UpdateProductsParamWrapper>(e.Data);
             if (updateProductsParam.hasValidValues())
             {

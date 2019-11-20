@@ -41,6 +41,8 @@ namespace BidderServer.MVC
             this.productsFormClosedHandler = this.handleProductFormClosed;
 
             fillProductInventoryFromStartupConfiguration();
+
+            this.Log.Level = LogLevel.Debug;
         }
 
         public void registerObserver(ServerObserver observer)
@@ -258,7 +260,7 @@ namespace BidderServer.MVC
 
         protected override void OnMessage(MessageEventArgs e)
         {
-            // Console.WriteLine("Client says: " + e.Data);
+            Console.WriteLine("Client says: " + e.Data);
             Credentials credentials = JsonConvert.DeserializeObject<Credentials>(e.Data);
             if (!credentials.userName.IsNullOrEmpty() && !credentials.userName.IsNullOrEmpty()) {
                 // authentization message came
@@ -268,7 +270,7 @@ namespace BidderServer.MVC
                 DidUserAutentizeWrapper didUserAutentizeWrapper = new DidUserAutentizeWrapper(wasAutentized, wasAutentized ? autentizedUser : new User(0, credentials));
                 Console.WriteLine("Client " + credentials.userName + " has tried to autentizate");
                 Console.WriteLine("Result " + (wasAutentized ? "Succeeded" : "Failed"));
-                notifyObservers(); // render on server FE
+                // notifyObservers(); // render on server FE
                 Sessions.SendTo(JsonConvert.SerializeObject(didUserAutentizeWrapper), this.ID); // notify client
             } else
             {
@@ -280,7 +282,7 @@ namespace BidderServer.MVC
                     bool wasSuccessful = bidProduct(
                         bidProductParams.productID, bidProductParams.bidValue, bidProductParams.bidder
                     );
-                    notifyObservers(); // render on server FE
+                    // notifyObservers(); // render on server FE
                     Sessions.SendTo(JsonConvert.SerializeObject(new WasBidPlacedWrapper(wasSuccessful)), this.ID); // notify client
                 } else
                 {
