@@ -1,4 +1,5 @@
 ﻿using BidderServer.MVC;
+using BidderServer.Shared.Communication;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,7 +42,7 @@ namespace BidderServer
             controller.registerObserver(manageProductsForm.updateObserver);
 
             var wss = new WebSocketServer(80);
-            wss.AddWebSocketService<ServerController>("/bidder", () => controller);
+            wss.AddWebSocketService<ServerControllerService>("/bidder", () => new ServerControllerService(controller));
             wss.Start();
 
             Application.Run(serverDashBoardForm);

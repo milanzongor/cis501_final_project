@@ -14,7 +14,7 @@ using WebSocketSharp.Server;
 
 namespace BidderServer.MVC
 {
-    public class ServerController : WebSocketBehavior, ServerAPI
+    public class ServerController : ServerAPI
     {
         private ServerModel itsModel;
         private ServerState itsState;
@@ -210,7 +210,6 @@ namespace BidderServer.MVC
                 User knownUser = this.itsModel.connectedUsers[userID];
                 if (knownUser.credentials.Equals(credentials))
                 {
-                    knownUser.sessionID = this.ID;
                     return knownUser;
                 } else
                 {
@@ -221,7 +220,6 @@ namespace BidderServer.MVC
                 // new user, add him with entered password
                 userID = getHighestUserID();
                 User newUser = new User(userID, credentials);
-                newUser.sessionID = this.ID;
                 this.itsModel.connectedUsers.Add(userID, newUser);
                 return newUser;
             }
@@ -247,52 +245,23 @@ namespace BidderServer.MVC
             }
         }
 
-        void getClientsSocket(string userID) // TODO WebSocketSharp
+        private string getClientsSessionID(int userID)
         {
-            throw new NotImplementedException();
+            User user = this.itsModel.connectedUsers[userID];
+            if (user != null)
+            {
+                return user.sessionID;
+            } else
+            {
+                return "";
+            }
         }
         void notifyAllClientsAboutProductChange(List<Product> updatedProductsInventory)
         {
-
+            // 
         }
 
-        protected override void OnOpen()
-        {
-            base.OnOpen();
-            this.Log.Level = LogLevel.Debug;
-        }
 
-        protected override void OnMessage(MessageEventArgs e)
-        {
-            Console.WriteLine("Client says: " + e.Data);
-            Credentials credentials = JsonConvert.DeserializeObject<Credentials>(e.Data);
-            if (!credentials.userName.IsNullOrEmpty() && !credentials.userName.IsNullOrEmpty()) {
-                // authentization message came
-                Console.WriteLine("Authentization message came");
-                User autentizedUser = autentizate(credentials);
-                bool wasAutentized = autentizedUser != null;
-                DidUserAutentizeWrapper didUserAutentizeWrapper = new DidUserAutentizeWrapper(wasAutentized, wasAutentized ? autentizedUser : new User(0, credentials));
-                Console.WriteLine("Client " + credentials.userName + " has tried to autentizate");
-                Console.WriteLine("Result " + (wasAutentized ? "Succeeded" : "Failed"));
-                // notifyObservers(); // render on server FE
-                Sessions.SendTo(JsonConvert.SerializeObject(didUserAutentizeWrapper), this.ID); // notify client
-            } else
-            {
-                // bid product message must have come
-                Console.WriteLine("Bidding message came");
-                BidProductParamsWrapper bidProductParams = JsonConvert.DeserializeObject<BidProductParamsWrapper>(e.Data);
-                if (bidProductParams.hasValidValues())
-                {
-                    bool wasSuccessful = bidProduct(
-                        bidProductParams.productID, bidProductParams.bidValue, bidProductParams.bidder
-                    );
-                    // notifyObservers(); // render on server FE
-                    Sessions.SendTo(JsonConvert.SerializeObject(new WasBidPlacedWrapper(wasSuccessful)), this.ID); // notify client
-                } else
-                {
-                    throw new Exception("Unknown message came from the client");
-                }
-            }
-        }
+       
     }
 }

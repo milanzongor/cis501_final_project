@@ -74,6 +74,7 @@
       <DependentUpon>ManageProductsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Shared\Communication\BidProductParamsWrapper.cs" />
+    <Compile Include="Shared\Communication\ServerControllerService.cs" />
     <Compile Include="Shared\Communication\WasBidPlacedWrapper.cs" />
     <Compile Include="Shared\Communication\ServerAPI.cs" />
     <Compile Include="ServerDelegatesDeclaration.cs" />
