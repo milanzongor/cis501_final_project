@@ -41,8 +41,6 @@ namespace BidderServer.MVC
             this.productsFormClosedHandler = this.handleProductFormClosed;
 
             fillProductInventoryFromStartupConfiguration();
-
-            this.Log.Level = LogLevel.Debug;
         }
 
         public void registerObserver(ServerObserver observer)
@@ -256,6 +254,12 @@ namespace BidderServer.MVC
         void notifyAllClientsAboutProductChange(List<Product> updatedProductsInventory)
         {
 
+        }
+
+        protected override void OnOpen()
+        {
+            base.OnOpen();
+            this.Log.Level = LogLevel.Debug;
         }
 
         protected override void OnMessage(MessageEventArgs e)
