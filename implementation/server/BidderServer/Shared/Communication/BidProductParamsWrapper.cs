@@ -19,7 +19,7 @@ namespace BidderClient.Shared.Communication
             this.bidder = bidder;
         }
 
-        bool hasValidValues()
+        public bool hasValidValues()
         {
             return productID != 0 && bidValue != 0 && bidder != null && bidder.userID != 0;
         }

@@ -36,10 +36,11 @@ namespace BidderClient.Proxy
             if (webSocketToRealServer.IsAlive)
             {
                 bool authentizationFinished = false;
+                User autentizedUser;
                 while (!authentizationFinished)
                 {
                     webSocketToRealServer.Send(JsonConvert.SerializeObject(credentials));
-                    // get response
+                    // TODO get response
                     authentizationFinished = true;
                 }
 

@@ -9,6 +9,7 @@ namespace BidderClient.Shared
     public class User
     {
         public int userID { get; }
+        public string sessionID { get; set; }
         public Credentials credentials { get; }
 
         public User(int userID, Credentials credentials)
@@ -25,10 +26,7 @@ namespace BidderClient.Shared
 
         public override int GetHashCode()
         {
-            var hashCode = -1676068120;
-            hashCode = hashCode * -1521134295 + userID.GetHashCode();
-            hashCode = hashCode * -1521134295 + EqualityComparer<Credentials>.Default.GetHashCode(credentials);
-            return hashCode;
+            return -155231879 + EqualityComparer<Credentials>.Default.GetHashCode(credentials);
         }
     }
 }

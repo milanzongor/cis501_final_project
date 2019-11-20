@@ -207,9 +207,11 @@ namespace BidderServer.MVC
 
             if (userID != -1)
             {
-                if (this.itsModel.connectedUsers[userID].credentials.Equals(credentials))
+                User knownUser = this.itsModel.connectedUsers[userID];
+                if (knownUser.credentials.Equals(credentials))
                 {
-                    return this.itsModel.connectedUsers[userID];
+                    knownUser.sessionID = this.ID;
+                    return knownUser;
                 } else
                 {
                     return null;
@@ -219,6 +221,7 @@ namespace BidderServer.MVC
                 // new user, add him with entered password
                 userID = getHighestUserID();
                 User newUser = new User(userID, credentials);
+                newUser.sessionID = this.ID;
                 this.itsModel.connectedUsers.Add(userID, newUser);
                 return newUser;
             }
@@ -253,16 +256,6 @@ namespace BidderServer.MVC
 
         }
 
-        /*protected override void OnOpen()
-        {
-            
-            foreach (string m in history)
-            {
-                Sessions.SendTo(this.ID, m);
-            }
-        }
-        */
-
         protected override void OnMessage(MessageEventArgs e)
         {
             // Console.WriteLine("Client says: " + e.Data);
@@ -270,7 +263,9 @@ namespace BidderServer.MVC
             if (!credentials.userName.IsNullOrEmpty() && !credentials.userName.IsNullOrEmpty()) {
                 // authentization message came
                 User autentizedUser = autentizate(credentials);
-                Console.WriteLine(autentizedUser.credentials.userName);
+                Console.WriteLine("Client " + credentials.userName + " has tried to autentizate");
+                Console.WriteLine("Result " + autentizedUser != null ? "Succeeded" : "Failed");
+                Sessions.SendTo(JsonConvert.SerializeObject(autentizedUser), this.ID); // TODO async?
             } else
             {
                 // bid product message must have come
