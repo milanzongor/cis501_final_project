@@ -188,7 +188,7 @@ namespace BidderServer.MVC
 
         private int getHighestUserID()
         {
-            int highestID = 0;
+            int highestID = 1;
 
             foreach (var entry in this.itsModel.connectedUsers)
             {
@@ -262,21 +262,26 @@ namespace BidderServer.MVC
             Credentials credentials = JsonConvert.DeserializeObject<Credentials>(e.Data);
             if (!credentials.userName.IsNullOrEmpty() && !credentials.userName.IsNullOrEmpty()) {
                 // authentization message came
+                Console.WriteLine("Authentization message came");
                 User autentizedUser = autentizate(credentials);
+                bool wasAutentized = autentizedUser != null;
+                DidUserAutentizeWrapper didUserAutentizeWrapper = new DidUserAutentizeWrapper(wasAutentized, wasAutentized ? autentizedUser : new User(0, credentials));
                 Console.WriteLine("Client " + credentials.userName + " has tried to autentizate");
-                Console.WriteLine("Result " + autentizedUser != null ? "Succeeded" : "Failed");
-                Sessions.SendTo(JsonConvert.SerializeObject(autentizedUser), this.ID); // TODO async?
+                Console.WriteLine("Result " + (wasAutentized ? "Succeeded" : "Failed"));
+                notifyObservers(); // render on server FE
+                Sessions.SendTo(JsonConvert.SerializeObject(didUserAutentizeWrapper), this.ID); // notify client
             } else
             {
                 // bid product message must have come
+                Console.WriteLine("Bidding message came");
                 BidProductParamsWrapper bidProductParams = JsonConvert.DeserializeObject<BidProductParamsWrapper>(e.Data);
                 if (bidProductParams.hasValidValues())
                 {
                     bool wasSuccessful = bidProduct(
                         bidProductParams.productID, bidProductParams.bidValue, bidProductParams.bidder
                     );
-
-
+                    notifyObservers(); // render on server FE
+                    Sessions.SendTo(JsonConvert.SerializeObject(new WasBidPlacedWrapper(wasSuccessful)), this.ID); // notify client
                 } else
                 {
                     throw new Exception("Unknown message came from the client");

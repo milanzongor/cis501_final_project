@@ -55,6 +55,7 @@ namespace BidderClient
             bool wasLoginSuccessful = autentizedUser != null;
             if (wasLoginSuccessful)
             {
+                setAutentizedUser(autentizedUser);
                 setState(ClientState.AUTENTIZED_SUCCESSFULLY);
                 setState(ClientState.ALL_PRODUCTS_OFFERED);
             }
@@ -65,18 +66,28 @@ namespace BidderClient
             }
         }
 
-        private void validateBid(int productID, double price)
+        private bool validateBid(int productID, double price)
         {
-            
+            Product product = this.itsModel.productsInventory[productID];
+            return price > product.currentHighestBid.value;
         }
 
         private void bidProduct(int productID, double price)
         {
-            Product product = this.itsModel.productsInventory[productID];
-            if( price > product.currentHighestBid.value)
+            if (validateBid(productID, price))
             {
-                setState(ClientState.BID_PLACED_OK);
-                setState(ClientState.PRODUCT_SELECTED);
+                bool wasBidPlaced = serverProxy.bidProduct(productID, price, itsModel.loggedUser);
+                if (wasBidPlaced)
+                {
+                    setState(ClientState.BID_PLACED_OK);
+                    setState(ClientState.PRODUCT_SELECTED);
+                }
+                else
+                {
+                    setState(ClientState.BID_REJECTED);
+                    setState(ClientState.PRODUCT_SELECTED);
+                }
+
             }
             else
             {
@@ -90,14 +101,14 @@ namespace BidderClient
             setState(ClientState.PRODUCT_SELECTED);
         }
 
-        private void updateProductList(List<Shared.Product> productsInventory)
+        private void updateProductList(Dictionary<int, Product> productsInventory)
         {
-
+            this.itsModel.productsInventory = productsInventory;
         }
 
         private void setAutentizedUser(Shared.User user)
         {
-
+            this.itsModel.loggedUser = user;
         }
     }
 }

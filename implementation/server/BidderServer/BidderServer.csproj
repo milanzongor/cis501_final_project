@@ -74,6 +74,7 @@
       <DependentUpon>ManageProductsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Shared\Communication\BidProductParamsWrapper.cs" />
+    <Compile Include="Shared\Communication\WasBidPlacedWrapper.cs" />
     <Compile Include="Shared\Communication\ServerAPI.cs" />
     <Compile Include="ServerDelegatesDeclaration.cs" />
     <Compile Include="ServerState.cs" />
@@ -86,6 +87,7 @@
     <Compile Include="MVC\Views\ServerDashBoardForm.Designer.cs">
       <DependentUpon>ServerDashBoardForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Shared\Communication\DidUserAutentizeWrapper.cs" />
     <Compile Include="Shared\Item.cs" />
     <Compile Include="Shared\Product.cs" />
     <Compile Include="Shared\ProductStatus.cs" />

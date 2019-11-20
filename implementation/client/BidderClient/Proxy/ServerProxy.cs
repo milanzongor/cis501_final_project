@@ -89,8 +89,8 @@ namespace BidderClient.Proxy
             if (updateProductsParam.hasValidValues())
             {
                 // update products message came
+                Console.WriteLine("Update products inventory message came");
                 this.productsInventory = updateProductsParam.productsInventory;
-                Console.WriteLine("Products inventory updated");
             }
             else
             {   // information about result of either previous authentization or previous bidding must have come
@@ -98,10 +98,12 @@ namespace BidderClient.Proxy
                 if (didUserAutentize.hasValidValues())
                 {
                     // autentization result message came
+                    Console.WriteLine("Autentization result message came");
                     this.didUserAutentizeWrapper = didUserAutentize;
                 } else
                 {
                     // bidding result message came
+                    Console.WriteLine("Bidding result message came");
                     WasBidPlacedWrapper wasBidPlaced = JsonConvert.DeserializeObject<WasBidPlacedWrapper>(e.Data);
                     this.wasBidPlacedWrapper = wasBidPlaced;
                 }

@@ -20,6 +20,10 @@ namespace BidderClient.Shared
 
         public override bool Equals(object obj)
         {
+            if (this.GetType() != obj.GetType())
+            {
+                return false;
+            }
             User other = (User)obj;
             return this.credentials.userName.Equals(other.credentials.userName);
         }
