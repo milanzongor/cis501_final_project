@@ -176,41 +176,49 @@ namespace BidderServer.MVC
 
         private int getUserIDFromDB(string userName)
         {
-            foreach (var entry in this.itsModel.connectedUsers)
-            {
-                if (entry.Value.credentials.userName.Equals(userName))
+            lock(this) { 
+                foreach (var entry in this.itsModel.connectedUsers)
                 {
-                    return entry.Key;
+                    if (entry.Value.credentials.userName.Equals(userName))
+                    {
+                        return entry.Key;
+                    }
                 }
+                return -1;
             }
-            return -1;
         }
 
         private int getHighestUserID()
         {
-            int highestID = 1;
-
-            foreach (var entry in this.itsModel.connectedUsers)
+            lock (this)
             {
-                if (entry.Key > highestID)
-                {
-                    highestID = entry.Key;
-                }
-            }
+                int highestID = 1;
 
-            return highestID;
+                foreach (var entry in this.itsModel.connectedUsers)
+                {
+                    if (entry.Key > highestID)
+                    {
+                        highestID = entry.Key;
+                    }
+                }
+
+                return highestID;
+            }
         }
 
         public User autentizate(Credentials credentials)
         {
-            int userID = getUserIDFromDB(credentials.userName);
+            int userID = getUserIDFromDB(credentials.userName); // thread safe
 
             if (userID != -1)
             {
-                User knownUser = this.itsModel.connectedUsers[userID];
-                if (knownUser.credentials.Equals(credentials))
+                User foundUser;
+                lock (this) { 
+                    foundUser = this.itsModel.connectedUsers[userID];
+                }
+                if (foundUser.credentials.Equals(credentials))
                 {
-                    return knownUser;
+                    return foundUser;
                 } else
                 {
                     return null;
@@ -218,26 +226,34 @@ namespace BidderServer.MVC
             } else
             {
                 // new user, add him with entered password
-                userID = getHighestUserID();
+                userID = getHighestUserID() + 1; // thread safe
                 User newUser = new User(userID, credentials);
-                this.itsModel.connectedUsers.Add(userID, newUser);
+                lock (this) { 
+                    this.itsModel.connectedUsers.Add(userID, newUser);
+                    // notifyObservers(); TODO
+                }
                 return newUser;
             }
         }
 
         private bool isValidBid(int productID, Bid bid)
         {
-            Bid currentHighestBid = this.itsModel.productsInventory[productID].currentHighestBid;
-            return bid.value > currentHighestBid.value && bid.timestamp > currentHighestBid.timestamp;
+            lock(this) {
+                Bid currentHighestBid = this.itsModel.productsInventory[productID].currentHighestBid;
+                return bid.value > currentHighestBid.value && bid.timestamp > currentHighestBid.timestamp;
+            }
         }
         public bool bidProduct(int productID, double bidValue, User bidder)
         {
             Bid bid = new Bid(bidder, bidValue, DateTime.Now);
-            if (isValidBid(productID, bid))
+            if (isValidBid(productID, bid)) // thread-safe
             {
-                Product product = this.itsModel.productsInventory[productID];
-                product.numberOfBids++;
-                product.currentHighestBid = bid;
+                lock (this) { 
+                    Product product = this.itsModel.productsInventory[productID];
+                    product.numberOfBids++;
+                    product.currentHighestBid = bid;
+                    // notifyObservers(); TODO
+                }
                 return true;
             } else
             {

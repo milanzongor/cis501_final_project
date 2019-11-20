@@ -40,7 +40,6 @@ namespace BidderServer.Shared.Communication
                 DidUserAutentizeWrapper didUserAutentizeWrapper = new DidUserAutentizeWrapper(wasAutentized, wasAutentized ? autentizedUser : new User(0, credentials));
                 Console.WriteLine("Client " + credentials.userName + " has tried to autentizate");
                 Console.WriteLine("Result " + (wasAutentized ? "Succeeded" : "Failed"));
-                // notifyObservers(); // render on server FE
                 Sessions.SendTo(JsonConvert.SerializeObject(didUserAutentizeWrapper), this.ID); // notify client
             }
             else
