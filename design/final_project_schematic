@@ -1,4 +1,4 @@
-<mxfile host="www.draw.io" modified="2019-11-20T00:21:53.433Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.97 Safari/537.36" etag="Fqv7crH4NDCxVakAA7VJ" version="12.2.7" type="github" pages="8">
+<mxfile host="www.draw.io" modified="2019-11-20T03:03:23.616Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.97 Safari/537.36" etag="KnBCmreChJFse3tf1ZTr" version="12.2.7" type="github" pages="8">
   <diagram id="_z4kQtNUOiMaieox2jux" name="use_cases">
     <mxGraphModel dx="1176" dy="573" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -141,7 +141,7 @@
         <mxCell id="-sFDvAB9CBZXoXh9_rqZ-10" value="" style="line;strokeWidth=1;fillColor=#3399FF;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" parent="-sFDvAB9CBZXoXh9_rqZ-8" vertex="1">
           <mxGeometry y="130" width="358" height="8" as="geometry"/>
         </mxCell>
-        <mxCell id="-sFDvAB9CBZXoXh9_rqZ-11" value="- tryToAutentize(string name, string password): boolean&#xa;- validateBid(int productID, double price)&#xa;- bidProduct(int productID, double price): boolean&#xa;&#xa;- updateProductsList()&#xa;- setAutentizedUser(User user)&#xa;&#xa;+ registerObserver(ClientObserver observer)&#xa;- notifyObservers()&#xa;- setState(ClientState state)&#xa;" style="text;strokeColor=none;fillColor=#3399FF;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="-sFDvAB9CBZXoXh9_rqZ-8" vertex="1">
+        <mxCell id="-sFDvAB9CBZXoXh9_rqZ-11" value="- tryToAutentize(string name, string password): boolean&#xa;- validateBid(int productID, double price): boolean&#xa;- bidProduct(int productID, double price): boolean&#xa;&#xa;- updateProductsList()&#xa;- setAutentizedUser(User user)&#xa;&#xa;+ registerObserver(ClientObserver observer)&#xa;- notifyObservers()&#xa;- setState(ClientState state)&#xa;" style="text;strokeColor=none;fillColor=#3399FF;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="-sFDvAB9CBZXoXh9_rqZ-8" vertex="1">
           <mxGeometry y="138" width="358" height="172" as="geometry"/>
         </mxCell>
         <mxCell id="-sFDvAB9CBZXoXh9_rqZ-12" value="ClientModel" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#FF8000;" parent="xSx5kuedUJU6_loG7H87-1" vertex="1">
