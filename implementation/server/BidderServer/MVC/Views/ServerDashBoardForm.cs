@@ -27,7 +27,7 @@ namespace BidderServer
             this.manageProductsHandler = manageProductsHandler;
 
             InitializeComponent();
-            update(itsState);
+            render(itsState);
         }
 
         private void ManageProductsButton_Click(object sender, EventArgs e)
@@ -37,29 +37,38 @@ namespace BidderServer
 
         private void update(ServerState newState)
         {
-            this.itsState = newState;
-
-            if (itsState == ServerState.MONITORING_STATE || itsState == ServerState.NEW_CLIENT_CONNECTED)
+            this.Invoke(new Action(() =>
             {
-                this.Show();
+                render(newState);
+            }));
+        }
 
-                this.productsDetailsList.Items.Clear();
-                foreach (var keyValuePair in this.itsModel.productsInventory)
-                {
-                    Product product = keyValuePair.Value;
-                    this.productsDetailsList.Items.Add(product.ToString());
-                }
+        private void render(ServerState newState)
+        {
+                this.itsState = newState;
 
-                this.connectedUsersList.Items.Clear();
-                foreach (var entry in this.itsModel.connectedUsers)
+                if (itsState == ServerState.MONITORING_STATE || itsState == ServerState.NEW_CLIENT_CONNECTED)
                 {
-                    User user = entry.Value;
-                    this.connectedUsersList.Items.Add(user.credentials.userName);
+                    this.Show();
+
+                    this.productsDetailsList.Items.Clear();
+                    foreach (var keyValuePair in this.itsModel.productsInventory)
+                    {
+                        Product product = keyValuePair.Value;
+                        this.productsDetailsList.Items.Add(product.ToString());
+                    }
+
+                    this.connectedUsersList.Items.Clear();
+                    foreach (var entry in this.itsModel.connectedUsers)
+                    {
+                        User user = entry.Value;
+                        this.connectedUsersList.Items.Add(user.credentials.userName);
+                    }
                 }
-            } else
-            {
-                this.Hide();
-            }
+                else
+                {
+                    this.Hide();
+                }
         }
     }
 }

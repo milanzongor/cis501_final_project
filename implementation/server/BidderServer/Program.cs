@@ -45,6 +45,12 @@ namespace BidderServer
             wss.AddWebSocketService<ServerControllerService>("/bidder", () => new ServerControllerService(controller));
             wss.Start();
 
+            /* forcing creation of handle to make Invoke work correctly 
+             https://stackoverflow.com/questions/808867/invoke-or-begininvoke-cannot-be-called-on-a-control-until-the-window-handle-has
+             */
+            manageProductsForm.Show();
+            manageProductsForm.Hide();
+
             Application.Run(serverDashBoardForm);
             wss.Stop();
         }

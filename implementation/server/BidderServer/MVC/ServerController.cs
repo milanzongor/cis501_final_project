@@ -192,7 +192,7 @@ namespace BidderServer.MVC
         {
             lock (this)
             {
-                int highestID = 1;
+                int highestID = 0;
 
                 foreach (var entry in this.itsModel.connectedUsers)
                 {
@@ -230,7 +230,7 @@ namespace BidderServer.MVC
                 User newUser = new User(userID, credentials);
                 lock (this) { 
                     this.itsModel.connectedUsers.Add(userID, newUser);
-                    // notifyObservers(); TODO
+                    notifyObservers();
                 }
                 return newUser;
             }
@@ -239,8 +239,23 @@ namespace BidderServer.MVC
         private bool isValidBid(int productID, Bid bid)
         {
             lock(this) {
-                Bid currentHighestBid = this.itsModel.productsInventory[productID].currentHighestBid;
-                return bid.value > currentHighestBid.value && bid.timestamp > currentHighestBid.timestamp;
+                Product product = this.itsModel.productsInventory[productID];
+                if (product.productStatus != ProductStatus.ACTIVE ||
+                    product.sellingStatus != SellingStatus.UNTAKEN ||
+                    bid.value < product.item.startingBidPrice
+                    )
+                {
+                    return false;
+                }
+                
+                Bid currentHighestBid = product.currentHighestBid;
+                if (currentHighestBid == null)
+                {
+                    return true;
+                } else
+                {
+                    return bid.value > currentHighestBid.value && bid.timestamp > currentHighestBid.timestamp;
+                }
             }
         }
         public bool bidProduct(int productID, double bidValue, User bidder)
@@ -252,7 +267,7 @@ namespace BidderServer.MVC
                     Product product = this.itsModel.productsInventory[productID];
                     product.numberOfBids++;
                     product.currentHighestBid = bid;
-                    // notifyObservers(); TODO
+                    notifyObservers(); ;                  
                 }
                 return true;
             } else

@@ -41,15 +41,16 @@ namespace BidderClient.Proxy
                 webSocketToRealServer.Send(JsonConvert.SerializeObject(credentials));
                 //while (didUserAutentizeWrapper == null) // while no response from server came
                 //{
-                //    Thread.Sleep(25); // slow poll wait for response
+                //    Thread.Sleep(50); // slow poll wait for response
                 //}
                 //if (didUserAutentizeWrapper.wasSuccessful)
                 //{
                 //    return didUserAutentizeWrapper.autentizedUser;
                 //} else
                 //{
-                    return null;
+                //    return null;
                 //}
+                return new User(1, new Credentials("testingUser", "testingPassword"));
             }
             else
             {

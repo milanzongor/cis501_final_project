@@ -46,7 +46,7 @@ namespace BidderServer
             this.productsFormClosedHandler = productsFormClosedHandler;
 
             InitializeComponent();
-            this.update(itsState);
+            this.render(itsState);
         }
 
         private void AddProductButton_Click(object sender, EventArgs e)
@@ -108,22 +108,30 @@ namespace BidderServer
 
         private void update(ServerState newState)
         {
-            this.itsState = newState;
-
-            if (itsState == ServerState.MANAGING_PRODUCTS || itsState == ServerState.PRODUCT_ADDED_SUCCESSFULLY || itsState == ServerState.DUPLICATE_PRODUCT_NOT_ADDED)
+            this.Invoke(new Action(() =>
             {
-                this.Show();
+                render(newState);
+            }));
+        }
 
-                this.productsList.Items.Clear();
-                foreach (var keyValuePair in this.itsModel.productsInventory)
+        private void render(ServerState newState)
+        {
+                this.itsState = newState;
+
+                if (itsState == ServerState.MANAGING_PRODUCTS || itsState == ServerState.PRODUCT_ADDED_SUCCESSFULLY || itsState == ServerState.DUPLICATE_PRODUCT_NOT_ADDED)
                 {
-                    Product product = keyValuePair.Value;
-                    this.productsList.Items.Add(product.productID + ") " + product.item.name + " - [" + product.item.startingBidPrice + "] - " + product.productStatus);
+                    this.Show();
+
+                    this.productsList.Items.Clear();
+                    foreach (var keyValuePair in this.itsModel.productsInventory)
+                    {
+                        Product product = keyValuePair.Value;
+                        this.productsList.Items.Add(product.productID + ") " + product.item.name + " - [" + product.item.startingBidPrice + "] - " + product.productStatus);
+                    }
+                } else
+                {
+                    this.Hide();
                 }
-            } else
-            {
-                this.Hide();
-            }
         }
 
         private void ManageProductsForm_Closing(object sender, FormClosingEventArgs e)

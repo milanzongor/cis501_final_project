@@ -52,7 +52,6 @@ namespace BidderServer.Shared.Communication
                     bool wasSuccessful = bidProduct(
                         bidProductParams.productID, bidProductParams.bidValue, bidProductParams.bidder
                     );
-                    // notifyObservers(); // render on server FE
                     Sessions.SendTo(JsonConvert.SerializeObject(new WasBidPlacedWrapper(wasSuccessful)), this.ID); // notify client
                 }
                 else
