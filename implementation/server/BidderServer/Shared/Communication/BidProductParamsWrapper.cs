@@ -12,6 +12,11 @@ namespace BidderClient.Shared.Communication
         public double bidValue { get; set; }
         public User bidder { get; set; }
 
+        public BidProductParamsWrapper()
+        {
+
+        }
+
         public BidProductParamsWrapper(int productID, double bidValue, User bidder)
         {
             this.productID = productID;

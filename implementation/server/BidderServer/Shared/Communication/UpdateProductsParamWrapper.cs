@@ -8,9 +8,14 @@ namespace BidderClient.Shared.Communication
 {
     public class UpdateProductsParamWrapper
     {
-        public List<Product> productsInventory { get; set; }
+        public Dictionary<int, Product> productsInventory { get; set; }
 
-        public UpdateProductsParamWrapper(List<Product> productsInventory)
+        public UpdateProductsParamWrapper()
+        {
+
+        }
+
+        public UpdateProductsParamWrapper(Dictionary<int, Product> productsInventory)
         {
             this.productsInventory = productsInventory;
         }

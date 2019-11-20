@@ -7,14 +7,17 @@ using BidderClient.Shared;
 using BidderClient.Shared.Communication;
 using Newtonsoft.Json;
 using WebSocketSharp;
+using WebSocketSharp.Server;
 
 namespace BidderClient.Proxy
 {
-    public class ServerProxy : ServerAPI
+    public class ServerProxy : WebSocketBehavior, ServerAPI
     {
         private WebSocket webSocketToRealServer;
         private Dictionary<int, Product> productsInventory;
         private static string REAL_SERVER_URL = "ws://127.0.0.1:80/bidder";
+        private DidUserAutentizeWrapper didUserAutentizeWrapper;
+        private WasBidPlacedWrapper wasBidPlacedWrapper;
 
         public ServerProxy()
         {
@@ -35,22 +38,22 @@ namespace BidderClient.Proxy
         {
             if (webSocketToRealServer.IsAlive)
             {
-                bool authentizationFinished = false;
-                User autentizedUser;
-                while (!authentizationFinished)
+                webSocketToRealServer.Send(JsonConvert.SerializeObject(credentials));
+                while (didUserAutentizeWrapper == null) // while no response from server came
                 {
-                    webSocketToRealServer.Send(JsonConvert.SerializeObject(credentials));
-                    // TODO get response
-                    authentizationFinished = true;
+                    // wait for response
                 }
-
-                // wait for response with User class!
-                //this.its
-                return null; // true
+                if (didUserAutentizeWrapper.wasSuccessful)
+                {
+                    return didUserAutentizeWrapper.autentizedUser;
+                } else
+                {
+                    return null;
+                }
             }
             else
             {
-                return null; // false
+                return null;
             }
         }
 
@@ -58,10 +61,15 @@ namespace BidderClient.Proxy
         {
             if (webSocketToRealServer.IsAlive)
             {
+                this.wasBidPlacedWrapper = null;
                 webSocketToRealServer.Send(JsonConvert.SerializeObject(
                     new BidProductParamsWrapper(productID, bidValue, bidder))
                 );
-                return true;
+                while (wasBidPlacedWrapper == null)
+                {
+                    // wait for response
+                }
+                return wasBidPlacedWrapper.wasSuccessful;
             }
             else
             {
@@ -72,6 +80,32 @@ namespace BidderClient.Proxy
         public Dictionary<int, Product> getUpToDateProductsInventory()
         {
             return productsInventory;
-        } 
+        }
+
+        protected override void OnMessage(MessageEventArgs e)
+        {
+            // Console.WriteLine("Server says: " + e.Data);
+            UpdateProductsParamWrapper updateProductsParam = JsonConvert.DeserializeObject<UpdateProductsParamWrapper>(e.Data);
+            if (updateProductsParam.hasValidValues())
+            {
+                // update products message came
+                this.productsInventory = updateProductsParam.productsInventory;
+                Console.WriteLine("Products inventory updated");
+            }
+            else
+            {   // information about result of either previous authentization or previous bidding must have come
+                DidUserAutentizeWrapper didUserAutentize = JsonConvert.DeserializeObject<DidUserAutentizeWrapper>(e.Data);
+                if (didUserAutentize.hasValidValues())
+                {
+                    // autentization result message came
+                    this.didUserAutentizeWrapper = didUserAutentize;
+                } else
+                {
+                    // bidding result message came
+                    WasBidPlacedWrapper wasBidPlaced = JsonConvert.DeserializeObject<WasBidPlacedWrapper>(e.Data);
+                    this.wasBidPlacedWrapper = wasBidPlaced;
+                }
+            }
+        }
     }
 }
