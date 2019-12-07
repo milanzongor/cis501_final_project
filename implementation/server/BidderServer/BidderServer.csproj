@@ -67,8 +67,8 @@
     <Compile Include="..\..\client\BidderClient\Shared\Communication\DidUserAutentizeWrapper.cs">
       <Link>Shared\Communication\DidUserAutentizeWrapper.cs</Link>
     </Compile>
-    <Compile Include="..\..\client\BidderClient\Shared\Communication\ProductActionResultWrapper.cs">
-      <Link>Shared\Communication\ProductActionResultWrapper.cs</Link>
+    <Compile Include="..\..\client\BidderClient\Shared\Communication\ProductAuctionResultWrapper.cs">
+      <Link>Shared\Communication\ProductAuctionResultWrapper.cs</Link>
     </Compile>
     <Compile Include="..\..\client\BidderClient\Shared\Communication\ServerAPI.cs">
       <Link>Shared\Communication\ServerAPI.cs</Link>

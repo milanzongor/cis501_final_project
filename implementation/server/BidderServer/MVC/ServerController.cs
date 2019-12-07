@@ -302,7 +302,7 @@ namespace BidderServer.MVC
         {
             User winner = product.currentHighestBid.bidder;
             getAllSessions().SendTo(
-                JsonConvert.SerializeObject(new ProductActionResultWrapper(product, true))
+                JsonConvert.SerializeObject(new ProductAuctionResultWrapper(product, true))
                 , winner.sessionID);
 
             foreach (var userEntry in this.itsModel.connectedUsers)
@@ -311,7 +311,7 @@ namespace BidderServer.MVC
                 if (!connectedUser.Equals(winner))
                 {
                     getAllSessions().SendTo(
-                    JsonConvert.SerializeObject(new ProductActionResultWrapper(product, false))
+                    JsonConvert.SerializeObject(new ProductAuctionResultWrapper(product, false))
                     , connectedUser.sessionID);
                 }
             }
