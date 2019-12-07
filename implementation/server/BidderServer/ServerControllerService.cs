@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using WebSocketSharp;
 using WebSocketSharp.Server;
@@ -54,6 +55,8 @@ namespace BidderServer
                         bidProductParams.productID, bidProductParams.bidValue, bidProductParams.bidder
                     );
                     Sessions.SendTo(JsonConvert.SerializeObject(new WasBidPlacedWrapper(wasSuccessful)), this.ID); // notify client
+                    Thread.Sleep(50);
+                    this.serverController.notifyAllClientsAboutProductChange();
                 }
                 else
                 {

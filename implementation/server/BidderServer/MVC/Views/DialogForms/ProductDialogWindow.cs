@@ -47,7 +47,14 @@ namespace BidderServer.MVC.Views.DialogForms
                 userInput2 = 10;
             }
             
-            dialogOKButtonHandler(product.productID, userInput1.Text, userInput2); 
+            if (product != null)
+            {
+                dialogOKButtonHandler(product.productID, userInput1.Text, userInput2);
+            } else
+            {
+                dialogOKButtonHandler(-1, userInput1.Text, userInput2); // -1 won't be used
+            }
+            
             this.Close();
         }
     }
