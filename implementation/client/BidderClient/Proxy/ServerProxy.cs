@@ -56,7 +56,7 @@ namespace BidderClient.Proxy
                         {
                             // product auction result message came
                             Console.WriteLine("Product auction result message came");
-                            // this.clientController.productActionResultMessage(productAuctionResultWrapper);
+                            this.clientController.productAuctionResultMessage(productAuctionResultWrapper);
                         } else { 
                             // bidding result message came
                             Console.WriteLine("Bidding result message came");

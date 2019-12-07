@@ -113,7 +113,7 @@ namespace BidderClient
             this.itsModel.loggedUser = user;
         }
 
-        private void productAuctionResultMessage(ProductActionResultWrapper result)
+        public void productAuctionResultMessage(ProductAuctionResultWrapper result)
         {
             string didYouWin;
             if (result.didYouWin)
