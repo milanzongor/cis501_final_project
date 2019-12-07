@@ -76,11 +76,13 @@ namespace BidderClient.Proxy
                     return didUserAutentizeWrapper.autentizedUser;
                 } else
                 {
+                    didUserAutentizeWrapper = null;
                     return null;
                 }
             }
             else
             {
+                didUserAutentizeWrapper = null;
                 return null;
             }
         }
@@ -95,7 +97,7 @@ namespace BidderClient.Proxy
                 );
                 while (wasBidPlacedWrapper == null)
                 {
-                    Thread.Sleep(25); // slow poll wait for response
+                    Thread.Sleep(50); // slow poll wait for response
                 }
                 return wasBidPlacedWrapper.wasSuccessful;
             }
