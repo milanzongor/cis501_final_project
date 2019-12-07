@@ -24,7 +24,8 @@ namespace BidderServer
         protected override void OnOpen()
         {
             base.OnOpen();
-            this.Log.Level = LogLevel.Debug;
+            this.serverController.lastConnectedControllerService = this;
+            // this.Log.Level = LogLevel.Debug;
         }
 
         protected override void OnMessage(MessageEventArgs e)
@@ -74,6 +75,11 @@ namespace BidderServer
         public bool bidProduct(int productID, double bidValue, User bidder)
         {
             return serverController.bidProduct(productID, bidValue, bidder);
+        }
+
+        public WebSocketSessionManager getAllServerSocketSessions()
+        {
+            return this.Sessions;
         }
     }
 }

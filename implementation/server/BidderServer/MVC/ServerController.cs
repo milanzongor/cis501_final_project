@@ -26,6 +26,7 @@ namespace BidderServer.MVC
         public StartProductAuctionHandler startProductAuctionHandler { get; }
         public StopProductAuctionHandler stopProductAuctionHandler { get; }
         public ProductsFormClosedHandler productsFormClosedHandler { get; }
+        public ServerControllerService lastConnectedControllerService { get; set; }
 
         public ServerController(ServerModel model)
         {
@@ -131,12 +132,14 @@ namespace BidderServer.MVC
 
                 this.itsModel.productsInventory.Add(highestProductID + 1, newProduct);
                 notifyObservers();
+                notifyAllClientsAboutProductChange();
             }
         }
         private void handleRemoveProduct(int productID)
         {
             this.itsModel.productsInventory.Remove(productID);
             notifyObservers();
+            notifyAllClientsAboutProductChange();
         }
         private void handleModifyProduct(int productID, string newProductName, double newProductStartingPrice)
         {
@@ -146,6 +149,7 @@ namespace BidderServer.MVC
                 productToModify.item.name = newProductName;
                 productToModify.item.startingBidPrice = newProductStartingPrice;
                 notifyObservers();
+                notifyAllClientsAboutProductChange();
             }
         }
         private void handleStartProductAuction(int productID)
@@ -157,6 +161,7 @@ namespace BidderServer.MVC
                 product.productStatus = ProductStatus.ACTIVE;
             }
             notifyObservers();
+            notifyAllClientsAboutProductChange();
         }
         private void handleStopProductAuction(int productID)
         {
@@ -167,6 +172,7 @@ namespace BidderServer.MVC
                 product.productStatus = ProductStatus.DISABLED;
             }
             notifyObservers();
+            notifyAllClientsAboutProductChange();
         }
 
         private void handleProductFormClosed()
@@ -217,7 +223,8 @@ namespace BidderServer.MVC
                     foundUser = this.itsModel.connectedUsers[userID];
                 }
                 if (foundUser.credentials.Equals(credentials))
-                {
+                { 
+                    notifyAllClientsAboutProductChange();
                     return foundUser;
                 } else
                 {
@@ -230,8 +237,9 @@ namespace BidderServer.MVC
                 User newUser = new User(userID, credentials);
                 lock (this) { 
                     this.itsModel.connectedUsers.Add(userID, newUser);
-                    notifyObservers();
                 }
+                notifyObservers();
+                notifyAllClientsAboutProductChange();
                 return newUser;
             }
         }
@@ -267,7 +275,8 @@ namespace BidderServer.MVC
                     Product product = this.itsModel.productsInventory[productID];
                     product.numberOfBids++;
                     product.currentHighestBid = bid;
-                    notifyObservers(); ;                  
+                    notifyObservers();
+                    notifyAllClientsAboutProductChange();
                 }
                 return true;
             } else
@@ -276,22 +285,17 @@ namespace BidderServer.MVC
             }
         }
 
-        private string getClientsSessionID(int userID)
+        public void notifyAllClientsAboutProductChange()
         {
-            User user = this.itsModel.connectedUsers[userID];
-            if (user != null)
-            {
-                return user.sessionID;
-            } else
-            {
-                return "";
-            }
-        }
-        void notifyAllClientsAboutProductChange(List<Product> updatedProductsInventory)
-        {
-            // 
+            this.lastConnectedControllerService.getAllServerSocketSessions().Broadcast(
+                JsonConvert.SerializeObject(new UpdateProductsParamWrapper(itsModel.productsInventory))
+            );
         }
 
+        private void notifyAboutProductActionResult(User winner)
+        {
+            // TODO
+        }
 
        
     }
