@@ -173,6 +173,7 @@ namespace BidderServer.MVC
             }
             notifyObservers();
             notifyAllClientsAboutProductChange();
+            notifyAboutProductActionResult(product);
         }
 
         private void handleProductFormClosed()
@@ -285,18 +286,35 @@ namespace BidderServer.MVC
             }
         }
 
+        private WebSocketSessionManager getAllSessions()
+        {
+            return this.lastConnectedControllerService.getAllServerSocketSessions();
+        }
+
         public void notifyAllClientsAboutProductChange()
         {
-            this.lastConnectedControllerService.getAllServerSocketSessions().Broadcast(
+            getAllSessions().Broadcast(
                 JsonConvert.SerializeObject(new UpdateProductsParamWrapper(itsModel.productsInventory))
             );
         }
 
-        private void notifyAboutProductActionResult(User winner)
+        private void notifyAboutProductActionResult(Product product)
         {
-            // TODO
-        }
+            User winner = product.currentHighestBid.bidder;
+            getAllSessions().SendTo(
+                JsonConvert.SerializeObject(new ProductActionResultWrapper(product, true))
+                , winner.sessionID);
 
-       
+            foreach (var userEntry in this.itsModel.connectedUsers)
+            {
+                User connectedUser = userEntry.Value;
+                if (!connectedUser.Equals(winner))
+                {
+                    getAllSessions().SendTo(
+                    JsonConvert.SerializeObject(new ProductActionResultWrapper(product, false))
+                    , connectedUser.sessionID);
+                }
+            }
+        }
     }
 }

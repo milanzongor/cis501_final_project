@@ -82,6 +82,7 @@
     </EmbeddedResource>
     <Compile Include="Shared\Communication\BidProductParamsWrapper.cs" />
     <Compile Include="Shared\Communication\DidUserAutentizeWrapper.cs" />
+    <Compile Include="Shared\Communication\ProductActionResultWrapper.cs" />
     <Compile Include="Shared\Communication\WasBidPlacedWrapper.cs" />
     <Compile Include="Shared\Communication\ServerAPI.cs" />
     <Compile Include="Proxy\ServerProxy.cs" />
