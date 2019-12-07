@@ -24,7 +24,7 @@ namespace BidderClient.Shared.Communication
 
         public bool hasValidValues()
         {
-            return autentizedUser != null && autentizedUser.userID != 0;
+            return autentizedUser != null;
         }
     }
 }
