@@ -41,7 +41,7 @@ namespace BidderClient.Proxy
                     this.clientController.updateProductList(updateProductsParam.productsInventory);
                 }
                 else
-                {   // information about result of either previous authentization or previous bidding must have come
+                {   // information about result of either previous authentization or previous bidding must have come or action result message
                     DidUserAutentizeWrapper didUserAutentize = JsonConvert.DeserializeObject<DidUserAutentizeWrapper>(e.Data);
                     if (didUserAutentize.hasValidValues())
                     {
@@ -51,10 +51,18 @@ namespace BidderClient.Proxy
                     }
                     else
                     {
-                        // bidding result message came
-                        Console.WriteLine("Bidding result message came");
-                        WasBidPlacedWrapper wasBidPlaced = JsonConvert.DeserializeObject<WasBidPlacedWrapper>(e.Data);
-                        this.wasBidPlacedWrapper = wasBidPlaced;
+                        ProductAuctionResultWrapper productAuctionResultWrapper = JsonConvert.DeserializeObject<ProductAuctionResultWrapper>(e.Data);
+                        if (productAuctionResultWrapper.hasValidValues())
+                        {
+                            // product auction result message came
+                            Console.WriteLine("Product auction result message came");
+                            // this.clientController.productActionResultMessage(productAuctionResultWrapper);
+                        } else { 
+                            // bidding result message came
+                            Console.WriteLine("Bidding result message came");
+                            WasBidPlacedWrapper wasBidPlaced = JsonConvert.DeserializeObject<WasBidPlacedWrapper>(e.Data);
+                            this.wasBidPlacedWrapper = wasBidPlaced;
+                        }
                     }
                 }
             };

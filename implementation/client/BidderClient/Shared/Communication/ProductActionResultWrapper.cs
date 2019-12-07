@@ -6,20 +6,24 @@ using System.Threading.Tasks;
 
 namespace BidderClient.Shared.Communication
 {
-    public class ProductActionResultWrapper
+    public class ProductAuctionResultWrapper
     {
         public Product product { get; set; }
         public bool didYouWin { get; set; }
 
-        public ProductActionResultWrapper()
+        public ProductAuctionResultWrapper()
         {
            
         }
 
-        public ProductActionResultWrapper(Product product, bool didYouWin)
+        public ProductAuctionResultWrapper(Product product, bool didYouWin)
         {
             this.product = product;
             this.didYouWin = didYouWin;
+        }
+        public bool hasValidValues()
+        {
+            return product != null && product.item != null;
         }
     }
 }
