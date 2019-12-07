@@ -25,7 +25,7 @@ namespace BidderClient.Proxy
             this.productsInventory = new Dictionary<int, Product>();
 
             this.webSocketToRealServer = new WebSocket(REAL_SERVER_URL);
-            this.webSocketToRealServer.Log.Level = LogLevel.Debug;
+            // this.webSocketToRealServer.Log.Level = LogLevel.Debug;
             this.webSocketToRealServer.Connect();
             this.webSocketToRealServer.OnMessage += (sender, e) =>
             {
