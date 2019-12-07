@@ -287,7 +287,7 @@ namespace BidderServer.MVC
 
         public void notifyAllClientsAboutProductChange()
         {
-            this.lastConnectedControllerService.notifyAllClientsAboutProductChange(
+            this.lastConnectedControllerService.getAllServerSocketSessions().Broadcast(
                 JsonConvert.SerializeObject(new UpdateProductsParamWrapper(itsModel.productsInventory))
             );
         }

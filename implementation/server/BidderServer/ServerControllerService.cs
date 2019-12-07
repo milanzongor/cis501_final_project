@@ -77,9 +77,9 @@ namespace BidderServer
             return serverController.bidProduct(productID, bidValue, bidder);
         }
 
-        public void notifyAllClientsAboutProductChange(string message)
+        public WebSocketSessionManager getAllServerSocketSessions()
         {
-            this.Sessions.Broadcast(message);
+            return this.Sessions;
         }
     }
 }
