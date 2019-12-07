@@ -263,7 +263,7 @@ namespace BidderServer.MVC
                     return true;
                 } else
                 {
-                    return bid.value > currentHighestBid.value && bid.timestamp > currentHighestBid.timestamp;
+                    return bid.value > currentHighestBid.value; //&& bid.timestamp > currentHighestBid.timestamp;
                 }
             }
         }
@@ -277,7 +277,6 @@ namespace BidderServer.MVC
                     product.numberOfBids++;
                     product.currentHighestBid = bid;
                     notifyObservers();
-                    notifyAllClientsAboutProductChange();
                 }
                 return true;
             } else
@@ -288,12 +287,23 @@ namespace BidderServer.MVC
 
         private WebSocketSessionManager getAllSessions()
         {
-            return this.lastConnectedControllerService.getAllServerSocketSessions();
+            if (this.lastConnectedControllerService != null)
+            {
+                return this.lastConnectedControllerService.getAllServerSocketSessions();
+            } else
+            {
+                return null;
+            }
         }
 
         public void notifyAllClientsAboutProductChange()
         {
-            getAllSessions().Broadcast(
+            WebSocketSessionManager allSessions = getAllSessions();
+            if (allSessions == null)
+            {
+                return;
+            }
+            allSessions.Broadcast(
                 JsonConvert.SerializeObject(new UpdateProductsParamWrapper(itsModel.productsInventory))
             );
         }
@@ -301,7 +311,12 @@ namespace BidderServer.MVC
         private void notifyAboutProductActionResult(Product product)
         {
             User winner = product.currentHighestBid.bidder;
-            getAllSessions().SendTo(
+            WebSocketSessionManager allSessions = getAllSessions();
+            if (allSessions == null)
+            {
+                return;
+            }
+            allSessions.SendTo(
                 JsonConvert.SerializeObject(new ProductAuctionResultWrapper(product, true))
                 , winner.sessionID);
 
@@ -310,7 +325,7 @@ namespace BidderServer.MVC
                 User connectedUser = userEntry.Value;
                 if (!connectedUser.Equals(winner))
                 {
-                    getAllSessions().SendTo(
+                    allSessions.SendTo(
                     JsonConvert.SerializeObject(new ProductAuctionResultWrapper(product, false))
                     , connectedUser.sessionID);
                 }
