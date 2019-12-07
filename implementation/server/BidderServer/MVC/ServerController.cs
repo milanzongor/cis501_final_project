@@ -263,7 +263,7 @@ namespace BidderServer.MVC
                     return true;
                 } else
                 {
-                    return bid.value > currentHighestBid.value && bid.timestamp > currentHighestBid.timestamp;
+                    return bid.value > currentHighestBid.value; //&& bid.timestamp > currentHighestBid.timestamp;
                 }
             }
         }
