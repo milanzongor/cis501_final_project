@@ -71,7 +71,16 @@ namespace BidderClient
                     this.selectedProductNameLabel.Text = product.item.name;
                     this.expirationDateLabel.Text = "1d, 4hrs, 25min left";
                     this.bidNumberLabel.Text = "( " + product.numberOfBids.ToString() + " bids )";
-                    this.minimalBidValueLabel.Text = "Minimum bid $ " + product.currentHighestBid.value.ToString();
+                    double minBidValue;
+                    if(product.currentHighestBid == null)
+                    {
+                        minBidValue = product.item.startingBidPrice;
+                    }
+                    else
+                    {
+                        minBidValue = product.currentHighestBid.value;
+                    }
+                    this.minimalBidValueLabel.Text = "Minimum bid $ " + minBidValue.ToString();
                     if (product.productStatus == ProductStatus.ACTIVE)
                     {
                         this.statusColorField.BackColor = System.Drawing.SystemColors.HotTrack;
