@@ -26,7 +26,7 @@ namespace BidderClient
             this.placeBidHandler = new PlaceBidHandler(this.bidProduct);
             this.productListViewHandler = new ProductListViewHandler(this.showSelectedProduct);
             this.registry = new List<ClientObserver>();
-            this.serverProxy = new ServerProxy();
+            this.serverProxy = new ServerProxy(this);
         }
 
         public void registerObserver(ClientObserver observer)
@@ -101,7 +101,7 @@ namespace BidderClient
             setState(ClientState.PRODUCT_SELECTED);
         }
 
-        private void updateProductList(Dictionary<int, Product> productsInventory)
+        public void updateProductList(Dictionary<int, Product> productsInventory)
         {
             this.itsModel.productsInventory = productsInventory;
         }

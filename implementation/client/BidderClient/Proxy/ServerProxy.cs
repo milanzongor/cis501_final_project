@@ -19,9 +19,11 @@ namespace BidderClient.Proxy
         private static string REAL_SERVER_URL = "ws://127.0.0.1:80/bidder";
         private DidUserAutentizeWrapper didUserAutentizeWrapper;
         private WasBidPlacedWrapper wasBidPlacedWrapper;
+        private ClientController clientController;
 
-        public ServerProxy()
+        public ServerProxy(ClientController clientController)
         {
+            this.clientController = clientController;
             this.productsInventory = new Dictionary<int, Product>();
 
             this.webSocketToRealServer = new WebSocket(REAL_SERVER_URL);
@@ -36,6 +38,7 @@ namespace BidderClient.Proxy
                     // update products message came
                     Console.WriteLine("Update products inventory message came");
                     this.productsInventory = updateProductsParam.productsInventory;
+                    this.clientController.updateProductList(updateProductsParam.productsInventory);
                 }
                 else
                 {   // information about result of either previous authentization or previous bidding must have come
