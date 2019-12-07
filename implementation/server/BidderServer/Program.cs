@@ -1,5 +1,4 @@
 ﻿using BidderServer.MVC;
-using BidderServer.Shared.Communication;
 using System;
 using System.Collections.Generic;
 using System.Linq;

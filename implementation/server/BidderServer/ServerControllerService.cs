@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using WebSocketSharp;
 using WebSocketSharp.Server;
 
-namespace BidderServer.Shared.Communication
+namespace BidderServer
 {
     public class ServerControllerService : WebSocketBehavior, ServerAPI
     {

@@ -24,7 +24,7 @@ namespace BidderClient.Shared
             {
                 return false;
             }
-            User other = (User) obj;
+            User other = (User)obj;
             return this.credentials.userName.Equals(other.credentials.userName);
         }
 

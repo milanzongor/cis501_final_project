@@ -15,7 +15,7 @@ namespace BidderClient.Shared
         public Bid currentHighestBid { get; set; }
         public int numberOfBids { get; set; }
 
-        public Product(int productID, Item item, ProductStatus productStatus) 
+        public Product(int productID, Item item, ProductStatus productStatus)
         {
             this.productID = productID;
             this.item = item;
@@ -36,6 +36,11 @@ namespace BidderClient.Shared
             {
                 return part1;
             }
+        }
+
+        public string ClientToString()
+        {
+            return this.productID + ") " + this.item.name;
         }
     }
 }
