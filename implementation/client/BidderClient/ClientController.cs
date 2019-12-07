@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using BidderClient.Proxy;
 using BidderClient.Shared;
+using BidderClient.Shared.Communication;
+using System.Windows.Forms;
 
 namespace BidderClient
 {
@@ -109,6 +111,21 @@ namespace BidderClient
         private void setAutentizedUser(Shared.User user)
         {
             this.itsModel.loggedUser = user;
+        }
+
+        private void productAuctionResultMessage(ProductActionResultWrapper result)
+        {
+            string didYouWin;
+            if (result.didYouWin)
+            {
+                didYouWin = "You won";
+            }
+            else
+            {
+                didYouWin = "You lost";
+            }
+
+            MessageBox.Show(didYouWin + " on product " + result.product.item.name);
         }
     }
 }
