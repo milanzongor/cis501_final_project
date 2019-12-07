@@ -25,10 +25,13 @@ namespace BidderClient
             this.handleProductListClick = productListViewHandler;
             this.placeBidHandler = placeBidHandler;
             this.updateObserver = this.update;
+            this.Show();
             this.Hide();
             InitializeComponent();
-
-            update(this.itsState);
+            this.Invoke(new Action(() =>
+            {
+                update(this.itsState);
+            }));
         }
 
         private void placeBidButton_Click(object sender, EventArgs e)
@@ -48,57 +51,60 @@ namespace BidderClient
 
         private void update(ClientState newState)
         {
-            this.itsState = newState;
+            this.Invoke(new Action(() =>
+                {
+                    this.itsState = newState;
 
-            switch (this.itsState)
-            {
-                case ClientState.ALL_PRODUCTS_OFFERED:
-                    disableIfNothingIsSelected();
-                    this.productListView.Items.Clear();
-                    foreach (var keyValuePair in this.itsModel.productsInventory)
-                    {
-                        this.productListView.Items.Add(keyValuePair.Value.ClientToString());
-                    }
-                    this.Show();
-                    break;
+                switch (this.itsState)
+                {
+                    case ClientState.ALL_PRODUCTS_OFFERED:
+                        disableIfNothingIsSelected();
+                        this.productListView.Items.Clear();
+                        foreach (var keyValuePair in this.itsModel.productsInventory)
+                        {
+                            this.productListView.Items.Add(keyValuePair.Value.ClientToString());
+                        }
+                        this.Show();
+                        break;
 
-                case ClientState.PRODUCT_SELECTED:
-                    enableIfAnythingSelected();
+                    case ClientState.PRODUCT_SELECTED:
+                        enableIfAnythingSelected();
                     
-                    int productID = getProductIDFromDescription(this.productListView.SelectedItems[0].Text);
-                    Product product = this.itsModel.productsInventory[productID];
+                        int productID = getProductIDFromDescription(this.productListView.SelectedItems[0].Text);
+                        Product product = this.itsModel.productsInventory[productID];
 
-                    this.selectedProductNameLabel.Text = product.item.name;
-                    this.expirationDateLabel.Text = "1d, 4hrs, 25min left";
-                    this.bidNumberLabel.Text = "( " + product.numberOfBids.ToString() + " bids )";
-                    double minBidValue;
-                    if(product.currentHighestBid == null)
-                    {
-                        minBidValue = product.item.startingBidPrice;
-                    }
-                    else
-                    {
-                        minBidValue = product.currentHighestBid.value;
-                    }
-                    this.minimalBidValueLabel.Text = "Minimum bid $ " + minBidValue.ToString();
-                    if (product.productStatus == ProductStatus.ACTIVE)
-                    {
-                        this.statusColorField.BackColor = System.Drawing.SystemColors.HotTrack;
-                    }
-                    else
-                    {
-                        this.statusColorField.BackColor = System.Drawing.SystemColors.ControlDark;
-                    }
-                    break;
+                        this.selectedProductNameLabel.Text = product.item.name;
+                        this.expirationDateLabel.Text = "1d, 4hrs, 25min left";
+                        this.bidNumberLabel.Text = "( " + product.numberOfBids.ToString() + " bids )";
+                        double minBidValue;
+                        if(product.currentHighestBid == null)
+                        {
+                            minBidValue = product.item.startingBidPrice;
+                        }
+                        else
+                        {
+                            minBidValue = product.currentHighestBid.value;
+                        }
+                        this.minimalBidValueLabel.Text = "Minimum bid $ " + minBidValue.ToString();
+                        if (product.productStatus == ProductStatus.ACTIVE)
+                        {
+                            this.statusColorField.BackColor = System.Drawing.SystemColors.HotTrack;
+                        }
+                        else
+                        {
+                            this.statusColorField.BackColor = System.Drawing.SystemColors.ControlDark;
+                        }
+                        break;
 
-                case ClientState.BID_PLACED_OK:
-                    MessageBox.Show("Your bid was succesfully added.");
-                    break;
+                    case ClientState.BID_PLACED_OK:
+                        MessageBox.Show("Your bid was succesfully added.");
+                        break;
 
-                case ClientState.BID_REJECTED:
-                    MessageBox.Show("Bid rejected - your bid must be higher that minimal bid value.");
-                    break;
-            }
+                    case ClientState.BID_REJECTED:
+                        MessageBox.Show("Bid rejected - your bid must be higher that minimal bid value.");
+                        break;
+                }
+            }));
         }
 
         private void productListView_click(object sender, EventArgs e)

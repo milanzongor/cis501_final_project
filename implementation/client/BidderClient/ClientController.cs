@@ -71,7 +71,14 @@ namespace BidderClient
         private bool validateBid(int productID, double price)
         {
             Product product = this.itsModel.productsInventory[productID];
-            return price > product.currentHighestBid.value;
+            if (product.currentHighestBid == null)
+            {
+                return price > product.item.startingBidPrice;
+            }
+            else
+            {
+                return price > product.currentHighestBid.value;
+            }
         }
 
         private void bidProduct(int productID, double price)
@@ -106,6 +113,10 @@ namespace BidderClient
         public void updateProductList(Dictionary<int, Product> productsInventory)
         {
             this.itsModel.productsInventory = productsInventory;
+            if(this.itsState == ClientState.PRODUCT_SELECTED)
+            {
+                notifyObservers();
+            }
         }
 
         private void setAutentizedUser(Shared.User user)

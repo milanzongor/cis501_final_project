@@ -16,7 +16,7 @@ namespace BidderClient.Proxy
     {
         private WebSocket webSocketToRealServer;
         private Dictionary<int, Product> productsInventory;
-        private static string REAL_SERVER_URL = "ws://127.0.0.1:80/bidder";
+        private static string REAL_SERVER_URL = "ws://192.168.137.63:80/bidder";
         private DidUserAutentizeWrapper didUserAutentizeWrapper;
         private WasBidPlacedWrapper wasBidPlacedWrapper;
         private ClientController clientController;
