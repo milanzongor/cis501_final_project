@@ -310,24 +310,26 @@ namespace BidderServer.MVC
 
         private void notifyAboutProductActionResult(Product product)
         {
-            User winner = product.currentHighestBid.bidder;
-            WebSocketSessionManager allSessions = getAllSessions();
-            if (allSessions == null)
-            {
-                return;
-            }
-            allSessions.SendTo(
-                JsonConvert.SerializeObject(new ProductAuctionResultWrapper(product, true))
-                , winner.sessionID);
-
-            foreach (var userEntry in this.itsModel.connectedUsers)
-            {
-                User connectedUser = userEntry.Value;
-                if (!connectedUser.Equals(winner))
+            if (product.currentHighestBid != null) { 
+                User winner = product.currentHighestBid.bidder;
+                WebSocketSessionManager allSessions = getAllSessions();
+                if (allSessions == null)
                 {
-                    allSessions.SendTo(
-                    JsonConvert.SerializeObject(new ProductAuctionResultWrapper(product, false))
-                    , connectedUser.sessionID);
+                    return;
+                }
+                allSessions.SendTo(
+                    JsonConvert.SerializeObject(new ProductAuctionResultWrapper(product, true))
+                    , winner.sessionID);
+            
+                foreach (var userEntry in this.itsModel.connectedUsers)
+                {
+                    User connectedUser = userEntry.Value;
+                    if (!connectedUser.Equals(winner))
+                    {
+                        allSessions.SendTo(
+                        JsonConvert.SerializeObject(new ProductAuctionResultWrapper(product, false))
+                        , connectedUser.sessionID);
+                    }
                 }
             }
         }
