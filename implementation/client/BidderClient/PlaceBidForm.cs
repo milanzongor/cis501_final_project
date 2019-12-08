@@ -17,6 +17,7 @@ namespace BidderClient
         private ClientState itsState;
         private PlaceBidHandler placeBidHandler;
         private ProductListViewHandler handleProductListClick;
+        private int productID;
         public ClientObserver updateObserver { get; }
         public PlaceBidForm(ClientModel model, PlaceBidHandler placeBidHandler, ProductListViewHandler productListViewHandler)
         {
@@ -36,7 +37,10 @@ namespace BidderClient
 
         private void placeBidButton_Click(object sender, EventArgs e)
         {
-            int productID = getProductIDFromDescription(this.productListView.SelectedItems[0].Text);
+            if (this.productListView.SelectedItems.Count > 0)
+            {
+                productID = getProductIDFromDescription(this.productListView.SelectedItems[0].Text);
+            }
             double price = -1.0;
             if (double.TryParse(biddingInput.Text, out price))
             {
@@ -69,8 +73,11 @@ namespace BidderClient
 
                     case ClientState.PRODUCT_SELECTED:
                         enableIfAnythingSelected();
-                    
-                        int productID = getProductIDFromDescription(this.productListView.SelectedItems[0].Text);
+                        
+                        if (this.productListView.SelectedItems.Count > 0)
+                        {
+                            productID = getProductIDFromDescription(this.productListView.SelectedItems[0].Text);
+                        }
                         Product product = this.itsModel.productsInventory[productID];
 
                         this.selectedProductNameLabel.Text = product.item.name;
@@ -94,6 +101,12 @@ namespace BidderClient
                         {
                             this.statusColorField.BackColor = System.Drawing.SystemColors.ControlDark;
                         }
+
+                        this.productListView.Items.Clear();
+                        foreach (var keyValuePair in this.itsModel.productsInventory)
+                        {
+                            this.productListView.Items.Add(keyValuePair.Value.ClientToString());
+                        }
                         break;
 
                     case ClientState.BID_PLACED_OK:
@@ -109,11 +122,14 @@ namespace BidderClient
 
         private void productListView_click(object sender, EventArgs e)
         {
-            int productID = getProductIDFromDescription(this.productListView.SelectedItems[0].Text);
+            if(this.productListView.SelectedItems.Count > 0)
+            {
+                productID = getProductIDFromDescription(this.productListView.SelectedItems[0].Text);
+            }
             handleProductListClick(productID);
         }
 
-        private int getProductIDFromDescription(string productDesc)
+        public int getProductIDFromDescription(string productDesc)
         {
             return Int32.Parse(productDesc.Substring(0, productDesc.IndexOf(')')));
         }
